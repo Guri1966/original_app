@@ -96,3 +96,40 @@ header {
   border: none;
   font-weight: bold;
 }
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #3498db;
+  color: white;
+  padding: 10px 20px;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.auth-info,
+.auth-links {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.auth-links a,
+.logout-btn {
+  color: white;
+  background-color: #2980b9;
+  padding: 6px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+  border: none;
+}
+
+.logout-btn:hover,
+.auth-links a:hover {
+  background-color: #1c5980;
+}
