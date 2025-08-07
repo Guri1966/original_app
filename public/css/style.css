@@ -1,0 +1,98 @@
+.body {
+  background-color: #daeb91;
+}
+
+.header {
+  background-color: #4CAF50;
+  color: white;
+  padding: 50px 0;
+  text-align: center;
+}
+
+.container {
+  max-width: 980px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: fit-content;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #999;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.button_area {
+  display: flex;
+  justify-content: space-between;
+  /* 左右に分ける */
+  margin-top: 20px;
+  /* 上に余白を追加（任意） */
+}
+
+.button_area button {
+  background-color: #174a5c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+
+}
+
+button:hover {
+  background-color: orange;
+}
+
+/* //ヘッダー要素 */
+
+header {
+  height: 80px;
+}
+
+.header_flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left_header {
+  width: 30%;
+}
+
+.right_header {
+  width: 70%;
+  display: flex;
+  justify-content: end;
+}
+
+.right_header ul {
+  list-style: none;
+  display: flex;
+}
+
+.right_header ul li {
+  margin-left: 20px;
+}
+
+.right_header ul li a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+.logout_btn {
+  background-color: transparent;
+  border: none;
+  font-weight: bold;
+}
