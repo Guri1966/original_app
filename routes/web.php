@@ -29,7 +29,8 @@ Route::get('/home', [WordController::class, 'index'])->middleware('auth')->name(
 
 //単語の登録
 Route::post('/words', [WordController::class, 'store'])->middleware('auth')->name('words.store');
-
+//登録単語の一覧表示
+Route::get('/words', [WordController::class, 'index'])->name('words.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
