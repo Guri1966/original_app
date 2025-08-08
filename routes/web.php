@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WordController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +23,12 @@ Route::get('/', function () {
 Route::get('/learn', function () {
     return view('learn');
 })->name('learn');
+
+//単語帳へ
+Route::get('/home', [WordController::class, 'index'])->middleware('auth')->name('home');
+
+//単語の登録
+Route::post('/words', [WordController::class, 'store'])->middleware('auth')->name('words.store');
 
 
 Route::get('/dashboard', function () {

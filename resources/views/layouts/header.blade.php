@@ -1,23 +1,21 @@
- <header>
-     <div class="d-flex header_flex">
-         <div class="right_header">
-         </div>
+   <header class="site-header">
 
-         <div class="left_header">
-             <ul>
-                 @if(Auth::check())
-                 <li>
-                     <form action="{{ route('logout') }}" method="post">
-                         @csrf
-                         <input class="logout_btn" type="submit" value="ログアウト" />
-                     </form>
-                 </li>
-                 <li>ユーザー名：{{ Auth::user()->name }}</li>
-                 @else
-                 <li><a href="{{ route('login') }}">ログイン</a></li>
-                 <li><a href="{{ route('register') }}">新規登録</a></li>
-                 @endif
-             </ul>
-         </div>
-     </div>
- </header>
+       <div class="header-inner">
+           <h1>単語帳アプリ</h1>
+           {{-- ▼ ログイン状態による表示の切り替え --}}
+           @if (Auth::check())
+           <div class="auth-info">
+               {{Auth::user()->name}}さん
+               <form method="POST" action="{{route('logout')}}">
+                   @csrf
+                   <button type="submit" class="logout-btn">ログアウト
+               </form>
+           </div>
+           @else
+           <div class="auth-links">
+               <a href="{{route('login')}}">ログイン</a>
+               <a href="{{route('register')}}">新規登録/</a>
+           </div>
+           @endif
+       </div>
+   </header>
