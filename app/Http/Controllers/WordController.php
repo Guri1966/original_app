@@ -8,10 +8,16 @@ use Illuminate\Support\Facades\Auth;
 
 class WordController extends Controller
 {
-    public function index()
+    public function home()
 {
     $words = Auth::user()->words;
-    return view ('home', compact('words'));
+    return view('home', compact('words'));
+}
+
+public function index()
+{
+    $words = Auth::user()->words;
+    return view('words.index', compact('words'));
 }
 
     public function store(Request $request)
