@@ -14,6 +14,7 @@ class WordController extends Controller
     return view('home', compact('words'));
 }
 
+
 public function index()
 {
     $words = Auth::user()->words;

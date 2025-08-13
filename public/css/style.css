@@ -38,7 +38,7 @@
 
 .wordStore_area form label {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   /* 水平方向中央 */
   align-items: center;
   /* 垂直方向中央 */

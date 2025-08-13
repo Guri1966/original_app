@@ -19,10 +19,11 @@
                         📖 カード型単語帳
                     </h2>
                     <div class="card">
-                        @if(count($words) > 0)
+                        @if(!empty($words) && count($words) > 0)
                         @php
                         $word = $words[0]; // 最初の1語だけ取り出す
                         @endphp
+
                         <table>
                             <caption style="font-weight: bold; font-size: 1.2em;">
                                 {{ $word->english }}
@@ -43,10 +44,12 @@
                         @else
                         <p>単語が登録されていません。</p>
                         @endif
+
                         <div class="button_area">
                             <button>&lt;&lt;</button>
                             <button>&gt;&gt;</button>
                         </div>
+
                     </div>
                     <!-- //カード型の単語帳 裏 -->
                 </div>
