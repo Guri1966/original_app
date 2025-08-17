@@ -60,15 +60,13 @@ th,
 td {
   border: 1px solid #999;
   padding: 8px 12px;
-  text-align: left;
+  text-align: center;
 }
 
 .button_area {
   display: flex;
   justify-content: space-between;
-  /* 左右に分ける */
-  margin-top: 20px;
-  /* 上に余白を追加（任意） */
+  gap: 10px;
 }
 
 .button_area button {
@@ -77,10 +75,54 @@ td {
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
+}
+
+.edit {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
 }
 
-button:hover {
+.edit button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.btn_area {
+  display: flex;
+  margin: auto;
+  gap: 5px;
+}
+
+
+
+
+.edit_area input {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+
+.del_form {
+  display: flex;
+  margin: auto;
+}
+
+.del_area input {
+  background-color: #ec1313;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover,
+input:hover {
   background-color: orange;
 }
 

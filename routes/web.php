@@ -35,9 +35,9 @@ Route::post('/words', [WordController::class, 'store'])->middleware('auth')->nam
 //登録単語の一覧表示
 Route::get('/words', [WordController::class, 'index'])->middleware('auth')->name('words.index');
 // 編集ページと削除処理
-Route::get('/words/{word}/edit', [WordController::class, 'edit'])->name('words.edit');
+Route::get('/words/{word}/edit', [WordController::class, 'getEdit'])->name('words.edit');
 Route::put('/words/{word}', [WordController::class, 'update'])->name('words.update');
-Route::delete('/words/{word}', [WordController::class, 'destroy'])->name('words.destroy');
+Route::post('/words/{word}', [WordController::class, 'destroy'])->name('words.destroy');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

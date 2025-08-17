@@ -21,7 +21,7 @@ public function index()
     return view('words.index', compact('words'));
 }
 
-    public function store(Request $request)
+public function store(Request $request)
 {
     $validated = $request->validate([
         'english' => 'required|string|max:255', // ★ 追加
@@ -34,8 +34,40 @@ public function index()
     $validated['user_id'] = Auth::id();
     Word::create($validated);
 
-    return redirect()->route('home')->with('success', '単語を追加しました！');
+    return redirect('/resist');
 }
- 
+
+public function getEdit($edit_id)
+{
+    $word_info = Word::find($edit_id);
+    return view('words.edit')
+    ->with('word_info' , $word_info);
+
+}
+
+
+
+public function update(Request $request, Word $word)
+{
+    $word->update([
+        'english' => $request->english,
+        'yomikata' => $request->yomikata,
+        'imi' => $request->imi,
+        'ruigo' => $request->ruigo,
+        'iikae' => $request->iikae,
+        
+    ]);
+    return redirect()
+        ->route('words.index')
+        ->with('success', '更新しました！');
+}
+
+
+public function destroy(Request $request) {
+    $delete_id = $request->delete_id;
+    $words = Word::find($delete_id);
+    $words->delete();
+    return redirect()->route('words.index')->with('success','削除しました！');
+}
 
 }

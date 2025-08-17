@@ -13,6 +13,8 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-normal">
             📖 単語帳一覧
         </h2>
+        <button class="btn btn2" style="width:91%;max-width:300px;" onclick="location.href='#'; loadScript(29);">
+            英検1級の単語をぜんぶ見る</button>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 @if(session('success'))
@@ -42,19 +44,33 @@
                             <td>{{ $word->ruigo }}</td>
                             <td>{{ $word->iikae }}</td>
                             <td>
-                                <button><a href="{{ route('words.edit', $word->id) }}">編集</a></botton>
-                                    <form action="{{ route('words.destroy', $word->id) }}" method="POST"
-                                        style="display:inline;">
-                                        @csrf @method('DELETE')
-                                        <button onclick="return confirm('本当に削除しますか？');">削除</button>
-                                    </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                @endif
+                                <div class="btn_area">
+                                    <div class="edit_area">
+                                        <form action="{{ route('words.edit', $word->id) }}" method="GET">
+                                            @csrf
+                                            <!-- <input type="hidden" name="edit_id" value="{{$word->id}}"> -->
+                                            <input type="submit" value="編集">
+                                        </form>
+                                    </div>
+                                    <div class="del_area">
+                                        <form action="{{ route('words.destroy', $word->id) }}" method="POST"
+                                            onsubmit="return confirm('本当に削除しますか？')" ;>
+                                            @csrf
+                                            <input type="submit" value="削除">
+                                        </form>
+                                    </div>
+                                    <div class="checkbox">
+                                        <input type="checkbox" name="remind">
+                                    </div>
+                                </div>
             </div>
+            </td>
+            </tr>
+            @endforeach
+            </tbody>
+            </table>
+            @endif
         </div>
     </div>
+</div>
 </div>
