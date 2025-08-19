@@ -56,11 +56,18 @@
                                         <form action="{{ route('words.destroy', $word->id) }}" method="POST"
                                             onsubmit="return confirm('本当に削除しますか？')" ;>
                                             @csrf
+                                            @method('DELETE')
                                             <input type="submit" value="削除">
                                         </form>
                                     </div>
                                     <div class="checkbox">
-                                        <input type="checkbox" name="remind">
+                                        <form action="{{ route('words.hold',$word->id) }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="hold_flag" value="0">
+                                            <!-- hiddenを仕込んで常に0 or 1を送る -->
+                                            <input type="checkbox" name="hold_flag" value="1"
+                                                onchange="this.form.submit()" {{$word->hold_flag ? 'checked': ''}}>
+                                        </form>
                                     </div>
                                 </div>
             </div>
@@ -72,5 +79,4 @@
             @endif
         </div>
     </div>
-</div>
 </div>

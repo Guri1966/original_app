@@ -44,6 +44,10 @@
                         <label>言い換え:</label>
                         <input type="text" name="iikae">
                     </div>
+                    <div>
+                        <label>hold_flag:</label>
+                        <input type="hidden" name="hold_flag" value="0">
+                    </div>
                     <button type="submit">追加</button>
                 </form>
             </div>

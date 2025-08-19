@@ -28,6 +28,7 @@
 
 .wordStore_area form {
   width: 500px;
+  margin-top: 15px;
   padding: 10px;
   border-radius: 10px;
   background-color: #fff;

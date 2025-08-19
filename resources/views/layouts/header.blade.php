@@ -6,7 +6,7 @@
             <nav class="menu">
                 <ul>
                     <li><a href="{{ route('home') }}">🏠 Home</a></li>
-                    <li><a href="{{route('regist')}}">📝 単語登録</a></li>
+                    <li><a href="{{route('resist')}}">📝 単語登録</a></li>
                     <li><a href="{{ route('words.index') }}">📖 単語帳一覧</a></li>
                     <li><a href="{{ route('learn') }}">🧠 学習モード</a></li>
                     <li><a href="{{ route('profile.edit') }}">👤 プロフィール</a></li>

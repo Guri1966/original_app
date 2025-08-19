@@ -29,22 +29,22 @@ public function store(Request $request)
         'imi' => 'required|string|max:255',
         'ruigo' => 'nullable|string|max:255',
         'iikae' => 'nullable|string|max:255',
+        'hold_flag' => 'required|boolean',
     ]);
 
     $validated['user_id'] = Auth::id();
     Word::create($validated);
-
     return redirect('/resist');
+   
 }
 
-public function getEdit($edit_id)
+public function edit($edit_id)
 {
     $word_info = Word::find($edit_id);
     return view('words.edit')
     ->with('word_info' , $word_info);
 
 }
-
 
 
 public function update(Request $request, Word $word)
@@ -63,11 +63,19 @@ public function update(Request $request, Word $word)
 }
 
 
-public function destroy(Request $request) {
-    $delete_id = $request->delete_id;
-    $words = Word::find($delete_id);
-    $words->delete();
+public function destroy(Word $word)
+{
+    $word->delete();
     return redirect()->route('words.index')->with('success','削除しました！');
+}
+
+public function hold(Request $request , Word $word)
+{
+    $word->update([
+        'hold_flag'=>$request->has('hold'),
+    ]);
+
+    return redirect() ->back() ->with('status','固定しました');
 }
 
 }
