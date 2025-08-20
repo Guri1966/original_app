@@ -21,5 +21,6 @@ protected $fillable = [
     'imi',
     'ruigo',
     'iikae',
+    'hold_flag',
 ];
 }

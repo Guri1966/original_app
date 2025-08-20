@@ -18,7 +18,8 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 @if(session('success'))
-                <div style="color: green;">{{ session('success') }}</div>
+                <div style="color: green;">{{ session('success') }}
+                </div>
                 @endif
 
                 @if($words->isEmpty())
@@ -63,6 +64,7 @@
                                     <div class="checkbox">
                                         <form action="{{ route('words.hold',$word->id) }}" method="POST">
                                             @csrf
+                                            @method('PATCH')
                                             <input type="hidden" name="hold_flag" value="0">
                                             <!-- hiddenを仕込んで常に0 or 1を送る -->
                                             <input type="checkbox" name="hold_flag" value="1"
@@ -70,12 +72,12 @@
                                         </form>
                                     </div>
                                 </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    @endforeach
+                </table>
             </div>
-            </td>
-            </tr>
-            @endforeach
-            </tbody>
-            </table>
             @endif
         </div>
     </div>

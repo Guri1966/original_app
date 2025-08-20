@@ -17,7 +17,11 @@ class WordController extends Controller
 
 public function index()
 {
-    $words = Auth::user()->words;
+    $words = Word::where('user_id', Auth::id())
+        ->orderByDesc('hold_flag') //フラグ１のものを上に
+        ->orderBy('english' ,'asc') //新しい順に並べる
+        ->get();
+        
     return view('words.index', compact('words'));
 }
 
@@ -71,11 +75,15 @@ public function destroy(Word $word)
 
 public function hold(Request $request , Word $word)
 {
-    $word->update([
-        'hold_flag'=>$request->has('hold'),
-    ]);
+    $request->validate([
+        'hold_flag' => 'required|boolean',
 
-    return redirect() ->back() ->with('status','固定しました');
+    ]);
+    $word->update([
+        'hold_flag'=>$request->hold_flag,
+    ]);
+    
+    return redirect() -> route('words.index');
 }
 
 }

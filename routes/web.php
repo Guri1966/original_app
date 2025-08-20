@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('words', WordController::class)->except(['show']);
 
     // hold専用ルート（resourceには含まれないので追加）
-    Route::post('/words/{word}/hold', [WordController::class, 'hold'])->name('words.hold');
+    Route::patch('/words/{word}/hold', [WordController::class, 'hold'])->name('words.hold');
 });
 
 // ダッシュボード
