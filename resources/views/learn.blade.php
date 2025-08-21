@@ -1,112 +1,97 @@
-<!DOCTYPE html>
-<html lang="ja">
+@include('layouts.header')
+@section('content')
+<div class="max-w-md mx-auto py-8 px-4">
+    <h1 class="text-xl font-bold mb-4 text-center">カード学習</h1>
 
-<head>
-    <meta charset="UTF-8">
-    <title>HTMLのbuttonタグ解説</title>
-    <style>
-    body {
-        font-family: sans-serif;
-        line-height: 1.6;
-        padding: 20px;
-    }
+    <div id="card" class="border rounded-lg p-6 shadow text-center min-h-[160px] flex flex-col justify-center">
+        <!-- JSで中身を差し替えます -->
+    </div>
 
-    h2 {
-        color: #174a5c;
-    }
+    <div class="mt-4 flex items-center justify-between">
+        <button id="prevBtn" class="px-4 py-2 border rounded disabled:opacity-40">← 前へ</button>
+        <div class="text-sm text-gray-500">
+            <span id="counter">0 / 0</span>
+        </div>
+        <button id="nextBtn" class="px-4 py-2 border rounded disabled:opacity-40">次へ →</button>
+    </div>
 
-    code {
-        background-color: #f0f0f0;
-        padding: 2px 4px;
-        border-radius: 4px;
-    }
+    <div class="mt-3 text-center">
+        <button id="shuffleBtn" class="text-xs underline">ランダム順にする</button>
+    </div>
+</div>
 
-    .button-example {
-        background-color: #174a5c;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        padding: 10px 20px;
-        cursor: pointer;
-    }
+<script>
+// PHPのコレクションをそのままJS配列へ
+const words = @json($words);
 
-    .button-example:hover {
-        background-color: orange;
-    }
-    </style>
-</head>
+let i = 0;
 
-<body>
+const card = document.getElementById('card');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const shuffleBtn = document.getElementById('shuffleBtn');
+const counter = document.getElementById('counter');
 
-    <h1>HTMLの&lt;button&gt;タグ解説</h1>
-
-    <h2>1. buttonタグの役割</h2>
-    <p>
-        <code>&lt;button&gt;</code>タグは、Webページにボタンを作成するために使用します。フォームの送信や任意の処理トリガーとして活用され、簡単にボタン要素を挿入できます。
-    </p>
-
-    <h2>2. 基本構文</h2>
-    <pre><code>&lt;button type="submit" name="send" value="send_value"&gt;
-  送信
-&lt;/button&gt;</code></pre>
-
-    <h2>3. 指定できる属性</h2>
-    <ul>
-        <li><strong>type</strong>：ボタンの種類を指定（<code>submit</code>、<code>reset</code>、<code>button</code>）。初期値は<code>submit</code>
-        </li>
-        <li><strong>form</strong>：関連付ける<form>のIDを指定</li>
-        <li><strong>name</strong>：ボタンの名前。JavaScriptやサーバー送信で利用</li>
-        <li><strong>value</strong>：ボタン自体の送信値</li>
-        <li><strong>disabled</strong>：ボタンを無効化</li>
-        <li><strong>autofocus</strong>：ページ表示時に自動でフォーカスを当てる</li>
-        <li><strong>formtarget</strong>（type="submit"時）：送信先ウィンドウやタブを指定</li>
-        <li>その他：<code>formaction</code>、<code>formenctype</code>、<code>formmethod</code>、<code>formnovalidate</code>など（type="submit"時）
-        </li>
-    </ul>
-
-    <h2>4. 他タグとの違い</h2>
-
-    <h3>aタグとの違い</h3>
-    <ul>
-        <li><code>&lt;a&gt;</code>はリンク用、<code>&lt;button&gt;</code>はフォーム送信用</li>
-        <li><code>&lt;a&gt;</code>はCSSでボタン風にスタイリング</li>
-    </ul>
-
-    <h3>inputタグとの違い</h3>
-    <ul>
-        <li><code>&lt;input type="button"&gt;</code>は閉じタグなし。<code>&lt;button&gt;</code>は中身を自由に記述可能</li>
-        <li><code>&lt;button&gt;</code>では擬似要素（<code>::before</code>や<code>::after</code>）が使えるため、より自由なデザインが可能</li>
-    </ul>
-
-    <h2>5. ボタンのCSSデザイン例</h2>
-    <p>以下はボタンの装飾例です。</p>
-
-    <button class="button-example">送信</button>
-
-    <pre><code>.button-example {
-  background-color: #174a5c;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+function esc(s) {
+    return String(s ?? '').replace(/[&<>"']/g, m => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    } [m]));
 }
 
-.button-example:hover {
-  background-color: orange;
-}</code></pre>
+function render() {
+    if (!words.length) {
+        card.innerHTML = '<p>単語がありません。まず登録してください。</p>';
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+        counter.textContent = '0 / 0';
+        return;
+    }
+    const w = words[i];
+    card.innerHTML = `
+            <div class="text-2xl font-semibold">${esc(w.english)}</div>
+            ${w.yomikata ? `<div class="mt-2">${esc(w.yomikata)}</div>` : ''}
+            ${w.meaning  ? `<div class="mt-3 text-sm opacity-80">${esc(w.meaning)}</div>` : ''}
+        `;
+    prevBtn.disabled = (i === 0);
+    nextBtn.disabled = (i === words.length - 1);
+    counter.textContent = (i + 1) + ' / ' + words.length;
+}
 
-    <h2>6. デザイン変更ポイント</h2>
-    <ul>
-        <li>背景色：<code>background-color</code></li>
-        <li>文字色：<code>color</code></li>
-        <li>余白：<code>padding</code></li>
-        <li>枠線削除：<code>border-style: none;</code></li>
-        <li>ホバー効果：<code>:hover</code>を使ってマウス時変化</li>
-        <li>角を丸くする：<code>border-radius</code>指定</li>
-    </ul>
+function shuffle(arr) {
+    for (let j = arr.length - 1; j > 0; j--) {
+        const k = Math.floor(Math.random() * (j + 1));
+        [arr[j], arr[k]] = [arr[k], arr[j]];
+    }
+}
 
-    <p>以上の内容を踏まえて、目的に応じたボタン作成と装飾を行いましょう。</p>
+prevBtn.addEventListener('click', () => {
+    if (i > 0) {
+        i--;
+        render();
+    }
+});
+nextBtn.addEventListener('click', () => {
+    if (i < words.length - 1) {
+        i++;
+        render();
+    }
+});
+shuffleBtn.addEventListener('click', () => {
+    shuffle(words);
+    i = 0;
+    render();
+});
 
-</body>
+// キーボード操作（左右キー）
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') prevBtn.click();
+    if (e.key === 'ArrowRight') nextBtn.click();
+});
 
-</html>
+render();
+</script>
+@endsection

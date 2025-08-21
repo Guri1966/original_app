@@ -19,7 +19,8 @@ public function index()
 {
     $words = Word::where('user_id', Auth::id())
         ->orderByDesc('hold_flag') //フラグ１のものを上に
-        ->orderBy('english' ,'asc') //新しい順に並べる
+        ->orderBy('english' ,'asc') //
+        ->orderBy('created_at' , 'asc')
         ->get();
         
     return view('words.index', compact('words'));
@@ -84,6 +85,12 @@ public function hold(Request $request , Word $word)
     ]);
     
     return redirect() -> route('words.index');
+}
+
+public function flashcards()
+{
+    $words = Auth::user()->words()->get(); // ユーザーの単語を全部取得
+    return view('words.flashcards', compact('words'));
 }
 
 }

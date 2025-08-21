@@ -34,8 +34,12 @@ Route::middleware('auth')->group(function () {
     // hold専用ルート（resourceには含まれないので追加）
     Route::patch('/words/{word}/hold', [WordController::class, 'hold'])->name('words.hold');
 });
+// カード型単語帳
+Route::get('/flashcards', [WordController::class, 'flashcards'])->name('flashcards');
 
-// ダッシュボード
+
+
+    // ダッシュボード
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
