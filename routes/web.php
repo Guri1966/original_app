@@ -23,23 +23,24 @@ Route::middleware('auth')->group(function () {
     // 単語帳ホーム
     Route::get('/home', [WordController::class, 'home'])->name('home');
 
-    // 単語登録フォーム
-    Route::get('/resist', function () {
-    return view('resist');
+// 単語登録フォーム
+Route::get('/resist', function () {
+return view('resist');
 })->name('resist');
 
-    // 単語のCRUDをまとめて定義
-    Route::resource('words', WordController::class)->except(['show']);
+// 単語のCRUDをまとめて定義
+Route::resource('words', WordController::class)->except(['show']);
 
-    // hold専用ルート（resourceには含まれないので追加）
-    Route::patch('/words/{word}/hold', [WordController::class, 'hold'])->name('words.hold');
+// hold専用ルート（resourceには含まれないので追加）
+Route::patch('/words/{word}/hold', [WordController::class, 'hold'])->name('words.hold');
 });
+
 // カード型単語帳
 Route::get('/flashcards', [WordController::class, 'flashcards'])->name('flashcards');
 
 
 
-    // ダッシュボード
+// ダッシュボード
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

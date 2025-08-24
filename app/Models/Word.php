@@ -21,6 +21,7 @@ protected $fillable = [
     'imi',
     'ruigo',
     'iikae',
+    'image_path',
     'hold_flag',
 ];
 }

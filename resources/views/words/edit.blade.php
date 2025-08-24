@@ -21,7 +21,7 @@
                 @if(session('success'))
                 <p style="color: green;">{{ session('success') }}</p>
                 @endif
-                <form action="{{ route('words.update', $word_info) }}" method="POST">
+                <form action="{{ route('words.update', $word_info) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <label>English:</label> {{-- ★ 追加 --}}
@@ -42,6 +42,10 @@
                     <div>
                         <label>言い換え:</label>
                         <input type="text" name="iikae" value="{{$word_info ->iikae }}">
+                    </div>
+                    <div>
+                        <label>イラスト:</label>
+                        <input type="file" name="image">
                     </div>
                     <button type="submit">編集</button>
                 </form>

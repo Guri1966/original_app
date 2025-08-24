@@ -22,7 +22,7 @@
                 @if(session('success'))
                 <p style="color: green;">{{ session('success') }}</p>
                 @endif
-                <form action="{{ route('words.store') }}" method="POST">
+                <form action="{{ route('words.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div>
                         <label>English:</label> {{-- ★ 追加 --}}
@@ -45,8 +45,13 @@
                         <input type="text" name="iikae">
                     </div>
                     <div>
+                        <label>イラスト:</label>
+                        <input type="file" name="image">
+                    </div>
+                    <div>
                         <label>hold_flag:</label>
                         <input type="hidden" name="hold_flag" value="0">
+                        <input type="checkbox" name="hold_flag" value="1">
                     </div>
                     <button type="submit">追加</button>
                 </form>

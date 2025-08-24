@@ -26,20 +26,31 @@ public function index()
     return view('words.index', compact('words'));
 }
 
-public function store(Request $request)
-{
+public function store(Request $request)  //単語新規登録
+{    
     $validated = $request->validate([
         'english' => 'required|string|max:255', // ★ 追加
         'yomikata' => 'required|string|max:255',
         'imi' => 'required|string|max:255',
         'ruigo' => 'nullable|string|max:255',
         'iikae' => 'nullable|string|max:255',
+        'image_path' => 'nullable|image|max:2048',
         'hold_flag' => 'required|boolean',
     ]);
 
+    // 画像ファイルがあれば保存
+    if ($request->hasFile('image_path')) {
+        // storage/app/public/images に保存
+        $path = $request->file('image_path')->store('images', 'public');
+        $validated['image_path'] = $path;
+    }
+
     $validated['user_id'] = Auth::id();
+    $validated['image_path'] = $path;
+    $validated['hold_flag']  = $request->boolean('hold_flag'); 
+        
     Word::create($validated);
-    return redirect('/resist');
+    return redirect()->route('words.index')->with('success','単語を登録しました');
    
 }
 

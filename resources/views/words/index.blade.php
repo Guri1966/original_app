@@ -18,7 +18,8 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 @if(session('success'))
-                <div style="color: green;">{{ session('success') }}
+                <div style="color: green;">
+                    {{ session('success') }}
                 </div>
                 @endif
 
@@ -33,7 +34,7 @@
                             <th>意味</th>
                             <th>類語</th>
                             <th>言い換え</th>
-                            <th>操作</th>
+                            <th>操作 | ☑ピン留め</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -5,11 +5,19 @@
             @if (Auth::check())
             <nav class="menu">
                 <ul>
-                    <li><a href="{{ route('home') }}">🏠 Home</a></li>
-                    <li><a href="{{route('resist')}}">📝 単語登録</a></li>
-                    <li><a href="{{ route('words.index') }}">📖 単語帳一覧</a></li>
-                    <li><a href="{{ route('flashcards') }}">🧠 学習モード</a></li>
-                    <li><a href="{{ route('profile.edit') }}">👤 プロフィール</a></li>
+                    <li><a href="{{ route('home')}}" class="{{ request()->routeIs('home') ? 'active' : ''}}">🏠 Home</a>
+                    </li>
+                    <li><a href="{{route('resist')}}" class="{{ request()->routeIs('resist') ? 'active' : ''}}">📝
+                            単語登録</a>
+                    </li>
+                    <li><a href="{{ route('words.index')}}"
+                            class="{{ request()->routeIs('words.index') ? 'active' : ''}}">📖
+                            単語帳一覧</a></li>
+                    <li><a href="{{ route('flashcards')}}"
+                            class="{{ request()->routeIs('flashcards') ? 'active' : ''}}">🧠
+                            学習モード</a></li>
+                    <li><a href="{{ route('profile.edit')}}">👤
+                            プロフィール</a></li>
                 </ul>
             </nav>
 
