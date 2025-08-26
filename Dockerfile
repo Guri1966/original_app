@@ -46,4 +46,3 @@ RUN rm /etc/apache2/sites-available/000-default.conf && \
 
 # Apache mod_rewrite 有効化
 RUN a2enmod rewrite
-

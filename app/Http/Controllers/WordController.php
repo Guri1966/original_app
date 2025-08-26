@@ -63,7 +63,7 @@ public function edit($edit_id)
 }
 
 
-public function update(Request $request, Word $word)
+public function update_old(Request $request, Word $word)
 {
     $word->update([
         'english' => $request->english,
@@ -71,6 +71,7 @@ public function update(Request $request, Word $word)
         'imi' => $request->imi,
         'ruigo' => $request->ruigo,
         'iikae' => $request->iikae,
+        'image_path' => $request->image_path,
         
     ]);
     return redirect()
@@ -78,6 +79,34 @@ public function update(Request $request, Word $word)
         ->with('success', '更新しました！');
 }
 
+public function update(Request $request, Word $word)
+{
+    // バリデーション（必要なら）
+    // $request->validate([
+    //     'english' => 'required|string|max:255',
+    //     'yomikata' => 'nullable|string|max:255',
+    //     'imi' => 'nullable|string|max:255',
+    //     'ruigo' => 'nullable|string|max:255',
+    //     'iikae' => 'nullable|string|max:255',
+    //     'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    // ]);
+
+    // 入力値を配列にまとめる
+    $data = $request->only(['english','yomikata','imi','ruigo','iikae']);
+
+    // もし新しい画像がアップロードされたら保存
+    if ($request->hasFile('image')) {
+        $path = $request->file('image')->store('images', 'public'); 
+        $data['image_path'] = $path;
+    }
+
+    // DB更新
+    $word->update($data);
+
+    return redirect()
+        ->route('words.index')
+        ->with('success', '更新しました！');
+}
 
 public function destroy(Word $word)
 {
