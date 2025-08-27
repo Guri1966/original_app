@@ -13,8 +13,8 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-normal">
             📖 単語帳一覧
         </h2>
-        <button class="btn btn2" style="width:91%;max-width:300px;" onclick="location.href='#'; loadScript(29);">
-            英検1級の単語をぜんぶ見る</button>
+        <button class="btn btn2" style="width:91%;max-width:300px;">
+            登録単語一覧:(ABC順)</button>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 @if(session('success'))

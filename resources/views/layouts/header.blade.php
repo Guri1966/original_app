@@ -5,22 +5,24 @@
             @if (Auth::check())
             <nav class="menu">
                 <ul>
-                    <li><a href="{{ route('home')}}" class="{{ request()->routeIs('home') ? 'active' : ''}}">🏠 Home</a>
+                    <li><a href="{{ route('home')}}" class="{{ request()->routeIs('home') ? 'active' : ''}}">
+                            🏠<span>Home</span></a>
                     </li>
-                    <li><a href="{{route('resist')}}" class="{{ request()->routeIs('resist') ? 'active' : ''}}">📝
-                            単語登録</a>
+                    <li><a href="{{route('resist')}}" class="{{ request()->routeIs('resist') ? 'active' : ''}}">
+                            📝<span>単語登録</span></a>
                     </li>
                     <li><a href="{{ route('words.index')}}"
-                            class="{{ request()->routeIs('words.index') ? 'active' : ''}}">📖
-                            単語帳一覧</a></li>
-                    <li><a href="{{ route('flashcards')}}"
-                            class="{{ request()->routeIs('flashcards') ? 'active' : ''}}">🧠
-                            学習モード</a></li>
+                            class="{{ request()->routeIs('words.index') ? 'active' : ''}}">
+                            📖<span>単語帳一覧</span></a>
+                    </li>
+                    <li><a href="{{ route('quiz') }}" class="{{ request()->routeIs('quiz') ? 'active' : '' }}">
+                            🎴<span> クイズ</span></a>
+                    </li>
                     <li><a href="{{ route('profile.edit')}}">👤
-                            プロフィール</a></li>
+                            <span>プロフィール</span></a>
+                    </li>
                 </ul>
             </nav>
-
             <div class="auth-info">
                 {{ Auth::user()->name }} さん
                 <form method="POST" action="{{ route('logout') }}" style="display:inline;">
@@ -60,16 +62,6 @@
     display: flex;
     gap: 15px;
     padding: 30px 10px;
-}
-
-.menu a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.menu a:hover {
-    text-decoration: underline;
 }
 
 .auth-info {
