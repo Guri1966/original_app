@@ -15,16 +15,14 @@
                             class="{{ request()->routeIs('words.index') ? 'active' : ''}}">
                             📖<span>単語帳一覧</span></a>
                     </li>
-                    <li><a href="{{ route('flashcards')}}"
-                            class="{{ request()->routeIs('flashcards') ? 'active' : ''}}">
-                            🧠<span>学習モード</span></a>
+                    <li><a href="{{ route('quiz') }}" class="{{ request()->routeIs('quiz') ? 'active' : '' }}">
+                            🎴<span> クイズ</span></a>
                     </li>
                     <li><a href="{{ route('profile.edit')}}">👤
                             <span>プロフィール</span></a>
                     </li>
                 </ul>
             </nav>
-
             <div class="auth-info">
                 {{ Auth::user()->name }} さん
                 <form method="POST" action="{{ route('logout') }}" style="display:inline;">
@@ -64,16 +62,6 @@
     display: flex;
     gap: 15px;
     padding: 30px 10px;
-}
-
-.menu a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.menu a:hover {
-    text-decoration: underline;
 }
 
 .auth-info {

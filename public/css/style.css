@@ -45,6 +45,20 @@
   /* 垂直方向中央 */
 }
 
+.wordQuiz_area {
+  display: flex;
+  width: 500px;
+  justify-content: left;
+  align-items: center;
+  border: 2px solid #daeb91;
+  height: 30vh;
+}
+
+.card li {
+  list-style: none;
+  margin: 10px 0;
+}
+
 .menu a {
   position: relative;
   display: inline-flex;
@@ -53,6 +67,10 @@
   /* アイコンと文字の間隔 */
   text-decoration: none;
   color: white;
+}
+
+.menu a.active {
+  color: rgb(5, 41, 202);
 }
 
 /* 下線は文字部分にだけ付ける */
@@ -67,7 +85,6 @@
   bottom: -2px;
   width: 0;
   height: 2px;
-  color: #174a5c;
   background: blue;
   transition: width 1.5s ease;
   /* ← ここで遅くする */
@@ -217,4 +234,20 @@ header {
 
 .auth-links a:hover {
   background-color: #1c5980;
+}
+
+.mark {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 8px;
+}
+
+.mark.correct {
+  color: green;
+  /* ⭕を緑 */
+}
+
+.mark.incorrect {
+  color: red;
+  /* ❌を赤 */
 }

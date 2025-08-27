@@ -48,48 +48,50 @@
                            @else
                            <p>単語が登録されていません。</p>
                            @endif
+                       </div>
+                   </div>
+               </div>
+           </div>
+           <!-- JavaScript 部分 -->
+           <script>
+           document.addEventListener("DOMContentLoaded", function() {
+               const words = @json($wordsArray); // PHPからJavaScriptに配列を渡す
+               let currentIndex = 0;
 
+               const englishEl = document.getElementById("word-english");
+               const yomikataEl = document.getElementById("word-yomikata");
+               const imiEl = document.getElementById("word-imi");
+               const ruigoEl = document.getElementById("word-ruigo");
+               const iikaeEl = document.getElementById("word-iikae");
+               const imageArea = document.getElementById("word-image-area");
 
-                           <!-- JavaScript 部分 -->
-                           <script>
-                           document.addEventListener("DOMContentLoaded", function() {
-                               const words = @json($wordsArray); // PHPからJavaScriptに配列を渡す
-                               let currentIndex = 0;
+               function updateWord(index) {
+                   const word = words[index];
+                   englishEl.textContent = word.english;
+                   yomikataEl.textContent = word.yomikata;
+                   imiEl.textContent = word.imi;
+                   ruigoEl.textContent = word.ruigo;
+                   iikaeEl.textContent = word.iikae;
 
-                               const englishEl = document.getElementById("word-english");
-                               const yomikataEl = document.getElementById("word-yomikata");
-                               const imiEl = document.getElementById("word-imi");
-                               const ruigoEl = document.getElementById("word-ruigo");
-                               const iikaeEl = document.getElementById("word-iikae");
-                               const imageArea = document.getElementById("word-image-area");
+                   if (word.image_path) {
+                       imageArea.innerHTML =
+                           `<img id="word-image" src="/storage/${word.image_path}" alt="word image" width="100">`;
+                   } else {
+                       imageArea.innerHTML = `<p id="word-image">イラストなし</p>`;
+                   }
+               }
 
-                               function updateWord(index) {
-                                   const word = words[index];
-                                   englishEl.textContent = word.english;
-                                   yomikataEl.textContent = word.yomikata;
-                                   imiEl.textContent = word.imi;
-                                   ruigoEl.textContent = word.ruigo;
-                                   iikaeEl.textContent = word.iikae;
+               document.getElementById("prev-btn").addEventListener("click", function() {
+                   currentIndex = (currentIndex - 1 + words.length) % words.length;
+                   updateWord(currentIndex);
+               });
 
-                                   if (word.image_path) {
-                                       imageArea.innerHTML =
-                                           `<img id="word-image" src="/storage/${word.image_path}" alt="word image" width="100">`;
-                                   } else {
-                                       imageArea.innerHTML = `<p id="word-image">イラストなし</p>`;
-                                   }
-                               }
-
-                               document.getElementById("prev-btn").addEventListener("click", function() {
-                                   currentIndex = (currentIndex - 1 + words.length) % words.length;
-                                   updateWord(currentIndex);
-                               });
-
-                               document.getElementById("next-btn").addEventListener("click", function() {
-                                   currentIndex = (currentIndex + 1) % words.length;
-                                   updateWord(currentIndex);
-                               });
-                           });
-                           </script>
+               document.getElementById("next-btn").addEventListener("click", function() {
+                   currentIndex = (currentIndex + 1) % words.length;
+                   updateWord(currentIndex);
+               });
+           });
+           </script>
 
 
        </body>

@@ -14,6 +14,10 @@ class WordController extends Controller
     return view('home', compact('words'));
 }
 
+// public function show() {
+//     $words = Auth::user()->words;
+//     return view('words.flashcards', compact('words'));
+// }
 
 public function index()
 {
@@ -63,34 +67,8 @@ public function edit($edit_id)
 }
 
 
-public function update_old(Request $request, Word $word)
-{
-    $word->update([
-        'english' => $request->english,
-        'yomikata' => $request->yomikata,
-        'imi' => $request->imi,
-        'ruigo' => $request->ruigo,
-        'iikae' => $request->iikae,
-        'image_path' => $request->image_path,
-        
-    ]);
-    return redirect()
-        ->route('words.index')
-        ->with('success', '更新しました！');
-}
-
 public function update(Request $request, Word $word)
 {
-    // バリデーション（必要なら）
-    // $request->validate([
-    //     'english' => 'required|string|max:255',
-    //     'yomikata' => 'nullable|string|max:255',
-    //     'imi' => 'nullable|string|max:255',
-    //     'ruigo' => 'nullable|string|max:255',
-    //     'iikae' => 'nullable|string|max:255',
-    //     'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-    // ]);
-
     // 入力値を配列にまとめる
     $data = $request->only(['english','yomikata','imi','ruigo','iikae']);
 
@@ -127,10 +105,70 @@ public function hold(Request $request , Word $word)
     return redirect() -> route('words.index');
 }
 
-public function flashcards()
+// public function flashcards()
+// {
+//     $words = Auth::user()->words()->get(); // ユーザーの単語を全部取得
+//     return view('words.flashcards', compact('words'));
+// }
+
+public function quiz()
 {
-    $words = Auth::user()->words()->get(); // ユーザーの単語を全部取得
-    return view('words.flashcards', compact('words'));
+    // 登録単語を全部取得
+    $words = Word::all();
+
+    if ($words->count() < 4) {
+        return back()->with('error', '最低4語登録してください');
+    }
+
+    // ランダムで1問選ぶ
+    $question = $words->random();
+
+    // 正解の日本語訳
+    $correctAnswer = $question->imi;
+
+    // 不正解の候補（正解を除いた中からランダムに3つ）
+    $wrongAnswers = $words->where('id', '!=', $question->id)
+                          ->random(3)
+                          ->pluck('imi');
+
+    // 選択肢をシャッフル
+    $choices = collect([$correctAnswer])->merge($wrongAnswers)->shuffle();
+
+    return view('/words.quiz', compact('question', 'choices', 'correctAnswer'));
+}
+
+public function check(Request $request)
+{
+    $word = Word::findOrFail($request->word_id);
+
+    // 出題回数をカウント
+    $word->answer_count += 1;
+
+    $isCorrect = $request->answer === $request->correctAnswer;
+
+    if ($isCorrect) {
+        $word->correct_count += 1;
+    }
+
+    $word->save();
+
+    return response()->json([
+        'isCorrect' => $isCorrect,
+        'correctAnswer' => $request->correctAnswer,
+    ]);
+}
+
+public function stats()
+{
+    // 正解率 = correct_count / answer_count
+    $words = Word::select('*')
+        ->where('answer_count', '>', 0)
+        ->get()
+        ->sortBy(function($w) {
+            return $w->correct_count / $w->answer_count;
+        });
+
+    return view('/words.quiz_stats', compact('words'));
 }
 
 }
