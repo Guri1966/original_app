@@ -3,7 +3,8 @@
 
 このリポジトリは Laravel 学習用のサンプルアプリです。  
 基本的なCRUD機能（登録・更新・削除）を含み、動作確認用のサンプルデータも付属しています。
-
+「DBの初期データは sample.sql を import してください」
+「mysql -u root -p laravel < sample.sql」
 ---
 
 ## セットアップ手順
