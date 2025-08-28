@@ -1,8 +1,8 @@
     <header class="site-header">
         <div class="header-inner">
             <h1>単語帳アプリ</h1>
-
             @if (Auth::check())
+
             <nav class="menu">
                 <ul>
                     <li><a href="{{ route('home')}}" class="{{ request()->routeIs('home') ? 'active' : ''}}">
@@ -25,7 +25,7 @@
             </nav>
             <div class="auth-info">
                 {{ Auth::user()->name }} さん
-                <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+                <form method="GET" action="{{ route('dashboard') }}" style="display:inline;">
                     @csrf
                     <button type="submit" class="logout-btn">ログアウト</button>
                 </form>
