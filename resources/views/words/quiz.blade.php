@@ -28,21 +28,19 @@
                     </li>
                     @endforeach
                 </ul>
-
                 <form action="{{ route('quiz')}}" method="GET">
                     @csrf
                     <input type="hidden" name="sumbit">
                     <div class="button_area">
-                        <button id="prev-btn">&lt;&lt;</button>
                         <button id="next-btn">&gt;&gt;</button>
                     </div>
                 </form>
-                <form action="{{ route( 'quiz.stats' ) }}" method="GET">
-                    @csrf
-                    <input type="hidden" name="submit" value="">
-                    <x-primary-button>正解率の低い単語</x-primary-button>
-                </form>
             </div>
+            <form action="{{ route( 'quiz.stats' ) }}" method="GET">
+                @csrf
+                <input type="hidden" name="submit" value="">
+                <x-primary-button>正解率の低い単語</x-primary-button>
+            </form>
         </div>
     </div>
 

@@ -23,7 +23,7 @@
   display: flex;
   justify-content: left;
   align-items: center;
-  height: 40vh;
+  height: 50vh;
 }
 
 .wordStore_area form {
@@ -119,6 +119,7 @@ td {
 
 .button_area {
   display: flex;
+  margin: auto;
   justify-content: space-between;
   gap: 10px;
 }
