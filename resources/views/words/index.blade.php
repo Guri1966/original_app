@@ -34,6 +34,7 @@
                             <th>意味</th>
                             <th>類語</th>
                             <th>言い換え</th>
+                            <th>イラスト</th>
                             <th>操作 | ☑ピン留め</th>
                         </tr>
                     </thead>
@@ -45,6 +46,13 @@
                             <td>{{ $word->imi }}</td>
                             <td>{{ $word->ruigo }}</td>
                             <td>{{ $word->iikae }}</td>
+                            <td>
+                                @if($word->image_path)
+                                <img src="{{ asset('storage/' . $word->image_path) }}" alt="イラスト" width="50">
+                                @else
+                                <p>イラストは登録されていません。</p>
+                                @endif
+                            </td>
                             <td>
                                 <div class="btn_area">
                                     <div class="edit_area">
@@ -75,13 +83,18 @@
                                 </div>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
-                    @endforeach
                 </table>
+                <!-- ページネーションリンク -->
+                <div class="pagination">
+                    {{ $words->links('vendor.pagination.custom') }}
+                </div>
             </div>
-            @endif
         </div>
+        @endif
     </div>
+</div>
 </div>
 
 

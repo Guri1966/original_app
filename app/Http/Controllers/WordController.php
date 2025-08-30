@@ -14,49 +14,48 @@ class WordController extends Controller
     return view('home', compact('words'));
 }
 
-// public function show() {
-//     $words = Auth::user()->words;
-//     return view('words.flashcards', compact('words'));
-// }
 
-public function index()
+  public function index()
 {
-    $words = Word::where('user_id', Auth::id())
-        ->orderByDesc('hold_flag') //フラグ１のものを上に
-        ->orderBy('english' ,'asc') //
-        ->orderBy('created_at' , 'asc')
-        ->get();
-        
+    $words = Auth::user()->words()
+        ->orderByDesc('hold_flag')
+        ->orderBy('english')
+        ->orderBy('created_at')
+        ->paginate(10)
+        ->withQueryString();
+
     return view('words.index', compact('words'));
 }
 
-public function store(Request $request)  //単語新規登録
+
+//単語登録
+public function store(Request $request)
 {    
     $validated = $request->validate([
-        'english' => 'required|string|max:255', // ★ 追加
-        'yomikata' => 'required|string|max:255',
-        'imi' => 'required|string|max:255',
-        'ruigo' => 'nullable|string|max:255',
-        'iikae' => 'nullable|string|max:255',
-        'image_path' => 'nullable|image|max:2048',
+        'english'   => 'required|string|max:255',
+        'yomikata'  => 'required|string|max:255',
+        'imi'       => 'required|string|max:255',
+        'ruigo'     => 'nullable|string|max:255',
+        'iikae'     => 'nullable|string|max:255',
+        'image_path'=> 'nullable|image|max:2048',
         'hold_flag' => 'required|boolean',
     ]);
+  
+    $validated['image_path'] = $request->hasFile('image')
+    ? $request->file('image')->store('images', 'public')
+    : null;
 
-    // 画像ファイルがあれば保存
-    if ($request->hasFile('image_path')) {
-        // storage/app/public/images に保存
-        $path = $request->file('image_path')->store('images', 'public');
-        $validated['image_path'] = $path;
-    }
+// $validated に 'image' が残るとINSERTで未知カラムになるので除去
+    unset($validated['image']);
 
-    $validated['user_id'] = Auth::id();
-    $validated['image_path'] = $path;
-    $validated['hold_flag']  = $request->boolean('hold_flag'); 
+    $validated['user_id']   = Auth::id();
+    $validated['hold_flag'] = $request->boolean('hold_flag'); 
         
     Word::create($validated);
+
     return redirect()->route('words.index')->with('success','単語を登録しました');
-   
 }
+
 
 public function edit($edit_id)
 {
@@ -104,12 +103,6 @@ public function hold(Request $request , Word $word)
     
     return redirect() -> route('words.index');
 }
-
-// public function flashcards()
-// {
-//     $words = Auth::user()->words()->get(); // ユーザーの単語を全部取得
-//     return view('words.flashcards', compact('words'));
-// }
 
 public function quiz()
 {
