@@ -83,13 +83,18 @@
                                 </div>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
-                    @endforeach
                 </table>
+                <!-- ページネーションリンク -->
+                <div class="pagination">
+                    {{ $words->links('vendor.pagination.custom') }}
+                </div>
             </div>
-            @endif
         </div>
+        @endif
     </div>
+</div>
 </div>
 
 

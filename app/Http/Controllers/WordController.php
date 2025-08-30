@@ -15,16 +15,18 @@ class WordController extends Controller
 }
 
 
-public function index()
+  public function index()
 {
-    $words = Word::where('user_id', Auth::id())
-        ->orderByDesc('hold_flag') //フラグ１のものを上に
-        ->orderBy('english' ,'asc') //
-        ->orderBy('created_at' , 'asc')
-        ->get();
-        
+    $words = Auth::user()->words()
+        ->orderByDesc('hold_flag')
+        ->orderBy('english')
+        ->orderBy('created_at')
+        ->paginate(5)
+        ->withQueryString();
+
     return view('words.index', compact('words'));
 }
+
 
 //単語登録
 public function store(Request $request)

@@ -2,7 +2,6 @@
         <div class="header-inner">
             <h1>単語帳アプリ</h1>
             @if (Auth::check())
-
             <nav class="menu">
                 <ul>
                     <li><a href="{{ route('home')}}" class="{{ request()->routeIs('home') ? 'active' : ''}}">
