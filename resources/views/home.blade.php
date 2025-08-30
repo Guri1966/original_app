@@ -1,4 +1,5 @@
        @include('layouts.header')
+       @include('layouts.sidebar')
        <!DOCTYPE html>
        <html lang="ja">
 
@@ -89,6 +90,15 @@
                document.getElementById("next-btn").addEventListener("click", function() {
                    currentIndex = (currentIndex + 1) % words.length;
                    updateWord(currentIndex);
+               });
+           });
+
+           document.addEventListener("DOMContentLoaded", function() {
+               const menuBtn = document.getElementById("menu-toggle");
+               const sidebar = document.getElementById("sidebar");
+
+               menuBtn.addEventListener("click", () => {
+                   sidebar.classList.toggle("active");
                });
            });
            </script>

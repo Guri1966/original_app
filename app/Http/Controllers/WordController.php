@@ -21,7 +21,7 @@ class WordController extends Controller
         ->orderByDesc('hold_flag')
         ->orderBy('english')
         ->orderBy('created_at')
-        ->paginate(5)
+        ->paginate(10)
         ->withQueryString();
 
     return view('words.index', compact('words'));

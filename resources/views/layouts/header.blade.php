@@ -7,13 +7,14 @@
                     <li><a href="{{ route('home')}}" class="{{ request()->routeIs('home') ? 'active' : ''}}">
                             🏠<span>Home</span></a>
                     </li>
+                    <li><a href="{{ route('words.index')}}"
+                            class="{{ request()->routeIs('words.index') ? 'active' : ''}}">
+                            📖<span>単語帳</span></a>
+                    </li>
                     <li><a href="{{route('resist')}}" class="{{ request()->routeIs('resist') ? 'active' : ''}}">
                             📝<span>単語登録</span></a>
                     </li>
-                    <li><a href="{{ route('words.index')}}"
-                            class="{{ request()->routeIs('words.index') ? 'active' : ''}}">
-                            📖<span>単語帳一覧</span></a>
-                    </li>
+
                     <li><a href="{{ route('quiz') }}" class="{{ request()->routeIs('quiz') ? 'active' : '' }}">
                             🎴<span> クイズ</span></a>
                     </li>
@@ -39,7 +40,7 @@
     </header>
     <style>
 .site-header {
-    background: #20c1d6ff;
+    background: #2d3748;
     color: #fff;
     padding: 10px 20px;
     position: fixed;

@@ -32,6 +32,15 @@
             {{ $slot }}
         </main>
     </div>
+    <!-- sidebar -->
+    @include('layouts.sidebar')
+
+    <div class="main-content">
+        @yield('content')
+    </div>
+
+    <script src="{{ asset('js/sidebar.js') }}"></script>
+
 </body>
 
 </html>
