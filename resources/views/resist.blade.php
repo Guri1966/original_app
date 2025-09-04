@@ -29,6 +29,10 @@
                         <input type="text" name="english" required>
                     </div>
                     <div>
+                        <label>音節:</label>
+                        <input type="text" name="onsetu" required>
+                    </div>
+                    <div>
                         <label>読み方:</label>
                         <input type="text" name="yomikata" required>
                     </div>

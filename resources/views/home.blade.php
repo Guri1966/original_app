@@ -24,6 +24,8 @@
 
                            <div id="word-content">
                                <h2 id="word-english">{{ $wordsArray[0]['english'] }}</h2>
+                               <p><strong>音節:</strong> <span id="word-onsetu">{{ $wordsArray[0]['onsetu'] }}</span>
+                               </p>
                                <p><strong>読み方:</strong> <span id="word-yomikata">{{ $wordsArray[0]['yomikata'] }}</span>
                                </p>
                                <p><strong>意味:</strong> <span id="word-imi">{{ $wordsArray[0]['imi'] }}</span></p>
@@ -60,6 +62,7 @@
                let currentIndex = 0;
 
                const englishEl = document.getElementById("word-english");
+               const onsetuEl = document.getElementById("word-onsetu");
                const yomikataEl = document.getElementById("word-yomikata");
                const imiEl = document.getElementById("word-imi");
                const ruigoEl = document.getElementById("word-ruigo");
@@ -69,6 +72,7 @@
                function updateWord(index) {
                    const word = words[index];
                    englishEl.textContent = word.english;
+                   onsetuEl.textContent = word.onsetu;
                    yomikataEl.textContent = word.yomikata;
                    imiEl.textContent = word.imi;
                    ruigoEl.textContent = word.ruigo;

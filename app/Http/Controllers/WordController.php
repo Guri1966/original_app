@@ -33,6 +33,7 @@ public function store(Request $request)
 {    
     $validated = $request->validate([
         'english'   => 'required|string|max:255',
+        'onsetu'    => 'requierd|string|max:255',
         'yomikata'  => 'required|string|max:255',
         'imi'       => 'required|string|max:255',
         'ruigo'     => 'nullable|string|max:255',
@@ -69,7 +70,7 @@ public function edit($edit_id)
 public function update(Request $request, Word $word)
 {
     // 入力値を配列にまとめる
-    $data = $request->only(['english','yomikata','imi','ruigo','iikae']);
+    $data = $request->only(['english','onsetu','yomikata','imi','ruigo','iikae']);
 
     // もし新しい画像がアップロードされたら保存
     if ($request->hasFile('image')) {

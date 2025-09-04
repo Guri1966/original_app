@@ -5,7 +5,7 @@
             <nav class="menu">
                 <ul>
                     <li><a href="{{ route('home')}}" class="{{ request()->routeIs('home') ? 'active' : ''}}">
-                            🏠<span>Home</span></a>
+                            🏠<span>ホーム</span></a>
                     </li>
                     <li><a href="{{ route('words.index')}}"
                             class="{{ request()->routeIs('words.index') ? 'active' : ''}}">

@@ -30,6 +30,7 @@
                     <thead>
                         <tr>
                             <th>英語</th>
+                            <th>音節</th>
                             <th>読み方</th>
                             <th>意味</th>
                             <th>類語</th>
@@ -42,6 +43,7 @@
                         @foreach($words as $word)
                         <tr>
                             <td>{{ $word->english }}</td>
+                            <td>{{ $word->onsetu }}</td>
                             <td>{{ $word->yomikata }}</td>
                             <td>{{ $word->imi }}</td>
                             <td>{{ $word->ruigo }}</td>

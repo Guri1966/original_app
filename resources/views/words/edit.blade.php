@@ -24,7 +24,10 @@
                         @method('PUT')
                         <label>English:</label> {{-- ★ 追加 --}}
                         <input type="text" name="english" value="{{$word_info ->english }}">
-
+                        <div>
+                            <label>音節:</label>
+                            <input type="text" name="onsetu" value="{{$word_info ->onsetu }}">
+                        </div>
                         <div>
                             <label>読み方:</label>
                             <input type="text" name="yomikata" value="{{$word_info ->yomikata }}">
