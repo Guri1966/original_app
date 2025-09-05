@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WordController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,9 +23,9 @@ Route::middleware('auth')->group(function () {
 Route::get('/home', [WordController::class, 'home'])->name('home');
 
 // 単語登録フォーム
-Route::get('/resist', function () {
-return view('resist');
-})->name('resist');
+Route::get('/words/create', function () {
+return view('words.create');
+})->name('create');
 
 // 単語のCRUDをまとめて定義
 Route::resource('words', WordController::class)->except(['show']);
@@ -33,6 +34,9 @@ Route::resource('words', WordController::class)->except(['show']);
 Route::patch('/words/{word}/hold', [WordController::class, 'hold'])->name('words.hold');
 
 });
+
+Route::get('/words/create', [WordController::class, 'create'])->name('words.create');
+Route::post('/words/create', [WordController::class, 'store'])->name('words.store');
 
 // ダッシュボード
 Route::get('/dashboard', function () {

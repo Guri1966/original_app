@@ -10,9 +10,9 @@ class Category extends Model
     use HasFactory;
 
     protected $fillable=['name'];
-    pubulic function words()
+    public function words()
     {
-        return $this -> hasMany(Word:class);
+        return $this -> hasMany(Word::class);
         
     }
 }

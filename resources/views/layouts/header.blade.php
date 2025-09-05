@@ -11,7 +11,7 @@
                             class="{{ request()->routeIs('words.index') ? 'active' : ''}}">
                             📖<span>単語帳</span></a>
                     </li>
-                    <li><a href="{{route('resist')}}" class="{{ request()->routeIs('resist') ? 'active' : ''}}">
+                    <li><a href="{{route('words.create')}}" class="{{ request()->routeIs('create') ? 'active' : ''}}">
                             📝<span>単語登録</span></a>
                     </li>
 
