@@ -18,6 +18,7 @@
                     <li><a href="{{ route('quiz') }}" class="{{ request()->routeIs('quiz') ? 'active' : '' }}">
                             🎴<span> クイズ</span></a>
                     </li>
+                    <li><a href="{{ route('categories.index') }}">📂 カテゴリ管理</a></li>
                     <li><a href="{{ route('profile.edit')}}">👤
                             <span>プロフィール</span></a>
                     </li>

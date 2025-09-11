@@ -36,6 +36,7 @@
                             <th>類語</th>
                             <th>言い換え</th>
                             <th>イラスト</th>
+                            <th>カテゴリ</th>
                             <th>操作 | ☑ピン留め</th>
                         </tr>
                     </thead>
@@ -55,6 +56,7 @@
                                 <p>イラストは登録されていません。</p>
                                 @endif
                             </td>
+                            <td>{{ $word->category?->name??'未分類'}}</td>
                             <td>
                                 <div class="btn_area">
                                     <div class="edit_area">

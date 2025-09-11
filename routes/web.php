@@ -3,8 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WordController;
-
-
+use App\Http\Controllers\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,6 +32,8 @@ Route::resource('words', WordController::class)->except(['show']);
 // hold専用ルート（resourceには含まれないので追加）
 Route::patch('/words/{word}/hold', [WordController::class, 'hold'])->name('words.hold');
 
+//カテゴリ用のルートコントローラ
+Route::resource('categories', CategoryController::class);
 });
 
 Route::get('/words/create', [WordController::class, 'create'])->name('words.create');
