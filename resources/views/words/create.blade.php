@@ -29,6 +29,10 @@
                         <input type="text" name="english" required>
                     </div>
                     <div>
+                        <label>音節:</label>
+                        <input type="text" name="onsetu" required>
+                    </div>
+                    <div>
                         <label>読み方:</label>
                         <input type="text" name="yomikata" required>
                     </div>
@@ -47,6 +51,18 @@
                     <div>
                         <label>イラスト:</label>
                         <input type="file" name="image">
+                    </div>
+                    <div>
+                        <label for="category_id">カテゴリ</lable>
+                            <select name="category_id" id="category_id">
+                                <option value="">未分類</option>
+                                @foreach($categories as $category)
+                                <option value="{{ $category->id}}" @selected(old('category_id', $word->category_id
+                                    ??'')== $category->id)>
+                                    {{ $category->name}}
+                                </option>
+                                @endforeach
+                            </select>
                     </div>
                     <div>
                         <label>hold_flag:</label>

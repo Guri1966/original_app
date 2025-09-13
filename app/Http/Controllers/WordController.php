@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Word;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Category;
 
 class WordController extends Controller
 {
@@ -27,49 +28,104 @@ class WordController extends Controller
     return view('words.index', compact('words'));
 }
 
+// 新規追加したコード
+// 新規登録フォームを表示
+    public function create()
+    {
+        $categories = Category::all(); // カテゴリ一覧を取得
+        return view('words.create', compact('categories'));
+    }
+
+    // 単語登録処理
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'english'   => 'required|string|max:255',
+            'onsetu'    => 'required|string|max:255', // ← typo修正（requierd → required）
+            'yomikata'  => 'required|string|max:255',
+            'imi'       => 'required|string|max:255',
+            'ruigo'     => 'nullable|string|max:255',
+            'iikae'     => 'nullable|string|max:255',
+            'image_path'=> 'nullable|image|max:2048',
+            'hold_flag' => 'required|boolean',
+            'category_id' => 'nullable|exists:categories,id', // ← カテゴリ用バリデーション追加
+        ]);
+
+        $validated['image_path'] = $request->hasFile('image')
+            ? $request->file('image')->store('images', 'public')
+            : null;
+
+        // $validated に 'image' が残ると INSERT でエラーになるので除去
+        unset($validated['image']);
+
+        $validated['user_id']   = Auth::id();
+        $validated['hold_flag'] = $request->boolean('hold_flag'); 
+
+        Word::create($validated);
+
+        return redirect()->route('words.index')->with('success','単語を登録しました');
+    }
+
+    // 編集フォームを表示
+    public function edit($edit_id)
+    {
+        $word_info = Word::find($edit_id);
+        $categories = Category::all(); // 編集にもカテゴリ一覧が必要
+        return view('words.edit')
+            ->with('word_info', $word_info)
+            ->with('categories', $categories);
+    }
+
 
 //単語登録
-public function store(Request $request)
-{    
-    $validated = $request->validate([
-        'english'   => 'required|string|max:255',
-        'yomikata'  => 'required|string|max:255',
-        'imi'       => 'required|string|max:255',
-        'ruigo'     => 'nullable|string|max:255',
-        'iikae'     => 'nullable|string|max:255',
-        'image_path'=> 'nullable|image|max:2048',
-        'hold_flag' => 'required|boolean',
-    ]);
+// public function store(Request $request)
+// {    
+//     $validated = $request->validate([
+//         'english'   => 'required|string|max:255',
+//         'onsetu'    => 'requierd|string|max:255',
+//         'yomikata'  => 'required|string|max:255',
+//         'imi'       => 'required|string|max:255',
+//         'ruigo'     => 'nullable|string|max:255',
+//         'iikae'     => 'nullable|string|max:255',
+//         'image_path'=> 'nullable|image|max:2048',
+//         'hold_flag' => 'required|boolean',
+//     ]);
   
-    $validated['image_path'] = $request->hasFile('image')
-    ? $request->file('image')->store('images', 'public')
-    : null;
+//     $validated['image_path'] = $request->hasFile('image')
+//     ? $request->file('image')->store('images', 'public')
+//     : null;
 
-// $validated に 'image' が残るとINSERTで未知カラムになるので除去
-    unset($validated['image']);
+// // $validated に 'image' が残るとINSERTで未知カラムになるので除去
+//     unset($validated['image']);
 
-    $validated['user_id']   = Auth::id();
-    $validated['hold_flag'] = $request->boolean('hold_flag'); 
+//     $validated['user_id']   = Auth::id();
+//     $validated['hold_flag'] = $request->boolean('hold_flag'); 
         
-    Word::create($validated);
+//     Word::create($validated);
 
-    return redirect()->route('words.index')->with('success','単語を登録しました');
-}
+//     return redirect()->route('words.index')->with('success','単語を登録しました');
+// }
+
+// public function create()
+// {
+//     $categories = Category::all(); // カテゴリ一覧を取得
+//     return view('words.create', compact('categories'));
+// }
 
 
-public function edit($edit_id)
-{
-    $word_info = Word::find($edit_id);
-    return view('words.edit')
-    ->with('word_info' , $word_info);
+// public function edit($edit_id)
+// {
+//     $word_info = Word::find($edit_id);
+//     return view('words.edit')
+//     ->with('word_info' , $word_info);
 
-}
+// }
 
 
 public function update(Request $request, Word $word)
 {
     // 入力値を配列にまとめる
-    $data = $request->only(['english','yomikata','imi','ruigo','iikae']);
+    $data = $request->only(['english','onsetu','yomikata','imi','ruigo','iikae']);
 
     // もし新しい画像がアップロードされたら保存
     if ($request->hasFile('image')) {

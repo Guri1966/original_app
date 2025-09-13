@@ -17,6 +17,7 @@ class Word extends Model
 protected $fillable = [
     'user_id',
     'english', // ★ 追加
+    'onsetu',
     'yomikata',
     'imi',
     'ruigo',
@@ -24,4 +25,10 @@ protected $fillable = [
     'image_path',
     'hold_flag',
 ];
+
+public function category()
+{
+    return $this ->belongsTo(Category::class);
+}
+
 }

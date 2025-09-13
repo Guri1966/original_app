@@ -5,19 +5,20 @@
             <nav class="menu">
                 <ul>
                     <li><a href="{{ route('home')}}" class="{{ request()->routeIs('home') ? 'active' : ''}}">
-                            🏠<span>Home</span></a>
+                            🏠<span>ホーム</span></a>
                     </li>
                     <li><a href="{{ route('words.index')}}"
                             class="{{ request()->routeIs('words.index') ? 'active' : ''}}">
                             📖<span>単語帳</span></a>
                     </li>
-                    <li><a href="{{route('resist')}}" class="{{ request()->routeIs('resist') ? 'active' : ''}}">
+                    <li><a href="{{route('words.create')}}" class="{{ request()->routeIs('create') ? 'active' : ''}}">
                             📝<span>単語登録</span></a>
                     </li>
 
                     <li><a href="{{ route('quiz') }}" class="{{ request()->routeIs('quiz') ? 'active' : '' }}">
                             🎴<span> クイズ</span></a>
                     </li>
+                    <li><a href="{{ route('categories.index') }}">📂 カテゴリ管理</a></li>
                     <li><a href="{{ route('profile.edit')}}">👤
                             <span>プロフィール</span></a>
                     </li>
