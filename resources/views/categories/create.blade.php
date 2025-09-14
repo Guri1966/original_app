@@ -1,5 +1,5 @@
 @include('layouts.header')
-<!DOCTYPE html>
+@include('layouts.sidebar')
 <html lang="ja">
 
 <head>

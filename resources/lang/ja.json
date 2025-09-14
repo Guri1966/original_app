@@ -12,5 +12,12 @@
     "You have not enabled two factor authentication.": "二要素認証を有効にしていません。",
     "SAVE": "保存",
     "Profile Information": "プロフィール情報",
-    "Update your account's profile information and email address.": "アカウントのプロフィール情報とメールアドレスを更新します。"
+    "Update your account's profile information and email address.": "アカウントのプロフィール情報とメールアドレスを更新します。",
+    "Ensure your account is using a long, random password to stay secure.": "安全を保つために、アカウントが長くランダムなパスワードを使用していることを確認してください。",
+    "Current Password": "現在のパスワード",
+    "New Password": "新しいパスワード",
+    "Confirm Password": "パスワードを認証する",
+    "Update Password": "パスワードを更新する",
+    "Delete Account": "アカウントを削除する",
+    "Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.": "アカウントが削除されると、そのすべてのリソースとデータが永久に削除されます。アカウントを削除する前に、保持したいデータや情報をダウンロードしてください。"
 }

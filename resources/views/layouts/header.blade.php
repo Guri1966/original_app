@@ -11,15 +11,19 @@
                             class="{{ request()->routeIs('words.index') ? 'active' : ''}}">
                             📖<span>単語帳</span></a>
                     </li>
-                    <li><a href="{{route('words.create')}}" class="{{ request()->routeIs('create') ? 'active' : ''}}">
+                    <li><a href="{{route('words.create')}}"
+                            class="{{ request()->routeIs('words.create') ? 'active' : ''}}">
                             📝<span>単語登録</span></a>
                     </li>
 
                     <li><a href="{{ route('quiz') }}" class="{{ request()->routeIs('quiz') ? 'active' : '' }}">
                             🎴<span> クイズ</span></a>
                     </li>
-                    <li><a href="{{ route('categories.index') }}">📂 カテゴリ管理</a></li>
-                    <li><a href="{{ route('profile.edit')}}">👤
+                    <li><a href="{{ route('categories.index') }}"
+                            class="{{ request()->routeIs('categories.index') ? 'active' : '' }}">
+                            📂<span> カテゴリ管理</span></a></li>
+                    <li><a href="{{ route('profile.edit')}}"
+                            class="{{ request()->routeIs('profile.edit') ? 'active' : '' }}">👤
                             <span>プロフィール</span></a>
                     </li>
                 </ul>
