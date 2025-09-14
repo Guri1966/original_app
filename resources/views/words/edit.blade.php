@@ -19,35 +19,35 @@
                     @if(session('success'))
                     <p style="color: green;">{{ session('success') }}</p>
                     @endif
-                    <form action="{{ route('words.update', $word_info) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('words.update',  $word->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <label>English:</label> {{-- ★ 追加 --}}
-                        <input type="text" name="english" value="{{$word_info ->english }}">
+                        <input type="text" name="english" value="{{$word ->english }}">
                         <div>
                             <label>音節:</label>
-                            <input type="text" name="onsetu" value="{{$word_info ->onsetu }}">
+                            <input type="text" name="onsetu" value="{{$word ->onsetu }}">
                         </div>
                         <div>
                             <label>読み方:</label>
-                            <input type="text" name="yomikata" value="{{$word_info ->yomikata }}">
+                            <input type="text" name="yomikata" value="{{$word ->yomikata }}">
                         </div>
                         <div>
                             <label>意味:</label>
-                            <input type="text" name="imi" value="{{$word_info ->imi }}">
+                            <input type="text" name="imi" value="{{$word ->imi }}">
                         </div>
                         <div>
                             <label>類語:</label>
-                            <input type="text" name="ruigo" value="{{$word_info ->ruigo }}">
+                            <input type="text" name="ruigo" value="{{$word ->ruigo }}">
                         </div>
                         <div>
                             <label>言い換え:</label>
-                            <input type="text" name="iikae" value="{{$word_info ->iikae }}">
+                            <input type="text" name="iikae" value="{{$word ->iikae }}">
                         </div>
                         <div>
                             <label>イラスト:</label>
-                            @if($word_info->image_path)
-                            <img src="{{ asset('storage/' . $word_info->image_path) }}" alt="イラスト" width="100">
+                            @if($word->image_path)
+                            <img src="{{ asset('storage/' . $word->image_path) }}" alt="イラスト" width="100">
                             @else
                             <p>イラストは登録されていません。</p>
                             @endif
