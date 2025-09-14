@@ -30,9 +30,12 @@
             </nav>
             <div class="auth-info">
                 {{ Auth::user()->name }} さん
-                <form method="GET" action="{{ route('dashboard') }}" style="display:inline;">
+                <!-- ログアウトボタン -->
+                <form method="POST" action="{{ route('logout') }}" style="display:inline;">
                     @csrf
-                    <button type="submit" class="logout-btn">ログアウト</button>
+                    <button type="submit" class="logout-btn">
+                        ログアウト
+                    </button>
                 </form>
             </div>
             @else
