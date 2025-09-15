@@ -30,11 +30,11 @@
                     </div>
                     <div>
                         <label>音節:</label>
-                        <input type="text" name="onsetu" required>
+                        <input type="text" name="onsetu">
                     </div>
                     <div>
                         <label>読み方:</label>
-                        <input type="text" name="yomikata" required>
+                        <input type="text" name="yomikata">
                     </div>
                     <div>
                         <label>意味:</label>

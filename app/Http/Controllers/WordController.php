@@ -57,7 +57,9 @@ class WordController extends Controller
         $validated['user_id'] = Auth::id();
         $validated['hold_flag'] = $request->boolean('hold_flag');
 
-        Word::create($validated);
+        // ユーザーに紐づけて保存
+        Auth::user()->words()->create($validated); 
+
 
         return redirect()->route('words.index')->with('success','単語を登録しました');
     }
@@ -119,7 +121,7 @@ class WordController extends Controller
     // クイズ画面表示
     public function quiz()
     {
-        $words = Word::all();
+        $words = Auth::user()->Words;
 
         if ($words->count() < 4) {
             return back()->with('error', '最低4語登録してください');
@@ -140,8 +142,7 @@ class WordController extends Controller
     // クイズ解答チェック（AJAX用）
     public function check(Request $request)
     {
-        $word = Word::findOrFail($request->word_id);
-
+        $word = Auth::user()->words()->findOrFail($request->word_id);
         $word->answer_count += 1;
         $isCorrect = $request->answer === $request->correctAnswer;
         if ($isCorrect) $word->correct_count += 1;
@@ -156,7 +157,9 @@ class WordController extends Controller
     // クイズ統計表示
     public function stats()
     {
-        $words = Word::where('answer_count', '>', 0)
+        $words = Auth::user()
+                     ->words()
+                     ->where('answer_count', '>', 0)
                      ->get()
                      ->sortBy(fn($w) => $w->correct_count / $w->answer_count);
 

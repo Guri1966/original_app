@@ -9,7 +9,7 @@
                     </li>
                     <li><a href="{{ route('words.index')}}"
                             class="{{ request()->routeIs('words.index') ? 'active' : ''}}">
-                            📖<span>単語帳</span></a>
+                            📖<span>単語一覧</span></a>
                     </li>
                     <li><a href="{{route('words.create')}}"
                             class="{{ request()->routeIs('words.create') ? 'active' : ''}}">
