@@ -26,6 +26,9 @@
                             class="{{ request()->routeIs('profile.edit') ? 'active' : '' }}">👤
                             <span>プロフィール</span></a>
                     </li>
+                    <li>
+                        <a href="{{ route('users.switch.form') }}" class="text-blue-600">ユーザー切り替え</a>
+                    </li>
                 </ul>
             </nav>
             <div class="auth-info">
