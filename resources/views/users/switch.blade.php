@@ -1,16 +1,18 @@
-    @include('layouts.sidebar')
-    <!DOCTYPE html>
-    <html lang="ja">
+@include('layouts.header')
+@include('layouts.sidebar')
+<!DOCTYPE html>
+<html lang="ja">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-        <title>単語帳アプリ</title>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <title>単語帳アプリ</title>
+</head>
 
-    <body>
-        <div class="container">
+<body>
+    <div class="container">
+        <div class="wordStore_area">
             <h2>ユーザー切り替え</h2>
             <form method="POST" action="{{ route('users.switch') }}">
                 @csrf
@@ -24,4 +26,5 @@
                 <button type="submit">切り替え</button>
             </form>
         </div>
-    </body>
+    </div>
+</body>
