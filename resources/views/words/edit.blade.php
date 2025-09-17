@@ -54,16 +54,16 @@
                             <input type="file" name="image">
                         </div>
                         <div>
-                            <label for="category_id">カテゴリ</lable>
-                                <select name="category_id" id="category_id">
-                                    <option value="">未分類</option>
-                                    @foreach($categories as $category)
-                                    <option value="{{ $category->id}}" @selected(old('category_id', $word->category_id
-                                        ??'')== $category->id)>
-                                        {{ $category->name}}
-                                    </option>
-                                    @endforeach
-                                </select>
+                            <label for="category_id">カテゴリ</label>
+                            <select name="category_id" id="category_id">
+                                <option value="">未分類</option>
+                                @foreach($categories as $category)
+                                <option value="{{ $category->id}}" @selected(old('category_id', $word->category_id
+                                    ??'')== $category->id)>
+                                    {{ $category->name}}
+                                </option>
+                                @endforeach
+                            </select>
                         </div>
                         <button type="submit">編集</button>
                     </form>

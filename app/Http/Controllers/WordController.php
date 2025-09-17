@@ -71,35 +71,38 @@ class WordController extends Controller
         return view('words.edit', compact('word', 'categories'));
     }
 
-    // 単語更新処理
-    public function update(Request $request, Word $word ,Category $category)
-    {
-        $request->validate([
-            'english' => 'required|string',
-            'onsetu' => 'nullable|string',
-            'yomikata' => 'nullable|string',
-            'imi' => 'nullable|string',
-            'ruigo' => 'nullable|string',
-            'iikae' => 'nullable|string',
-            'image' => 'nullable|image|max:2048',
-            'category_id'=>'nullable|string',
-        ]);
+    
+   // 単語更新処理
+public function update(Request $request, Word $word)
+{
+    $request->validate([
+        'english' => 'required|string',
+        'onsetu' => 'nullable|string',
+        'yomikata' => 'nullable|string',
+        'imi' => 'nullable|string',
+        'ruigo' => 'nullable|string',
+        'iikae' => 'nullable|string',
+        'image' => 'nullable|image|max:2048',
+        'category_id' => 'nullable|exists:categories,id', // 存在チェックも追加すると安全
+    ]);
 
-        $data = $request->only(['english','onsetu','yomikata','imi','ruigo','iikae']);
+    $data = $request->only([
+        'english','onsetu','yomikata','imi','ruigo','iikae','category_id'
+    ]);
 
-        // 空の値は空文字に
-        foreach (['onsetu','yomikata','imi','ruigo','iikae'] as $field) {
-            $data[$field] = $data[$field] ?? '';
-        }
-
-        if ($request->hasFile('image')) {
-            $data['image_path'] = $request->file('image')->store('images', 'public');
-        }
-
-        $word->update($data);
-
-        return redirect()->route('words.index')->with('success', '更新しました！');
+    // 空の値は空文字に
+    foreach (['onsetu','yomikata','imi','ruigo','iikae'] as $field) {
+        $data[$field] = $data[$field] ?? '';
     }
+
+    if ($request->hasFile('image')) {
+        $data['image_path'] = $request->file('image')->store('images', 'public');
+    }
+
+    $word->update($data);
+
+    return redirect()->route('words.index')->with('success', '更新しました！');
+}
 
     // 単語削除
     public function destroy(Word $word)

@@ -24,6 +24,7 @@ protected $fillable = [
     'iikae',
     'image_path',
     'hold_flag',
+    'category_id',
 ];
 
 public function category()
