@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/users/switch', [UserController::class,'switchForm'])
 ->name('users.switch.form');
 
-Route::post('/users/switch', [UserController::class,'switchForm'])
+Route::post('/users/switch', [UserController::class,'switch'])
 ->name('users.switch');
     
 

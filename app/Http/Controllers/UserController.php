@@ -22,6 +22,6 @@ class UserController extends Controller
 
         Auth::loginUsingId($request->user_id);
 
-        return redirect()->route('home')->with('success', 'ユーザーを切り替えました');
+        return redirect()->route('dashboard')->with('success', 'ユーザーを切り替えました');
     }
 }

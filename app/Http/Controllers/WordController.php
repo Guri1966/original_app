@@ -72,7 +72,7 @@ class WordController extends Controller
     }
 
     // 単語更新処理
-    public function update(Request $request, Word $word)
+    public function update(Request $request, Word $word ,Category $category)
     {
         $request->validate([
             'english' => 'required|string',
@@ -82,6 +82,7 @@ class WordController extends Controller
             'ruigo' => 'nullable|string',
             'iikae' => 'nullable|string',
             'image' => 'nullable|image|max:2048',
+            'category_id'=>'nullable|string',
         ]);
 
         $data = $request->only(['english','onsetu','yomikata','imi','ruigo','iikae']);
@@ -120,12 +121,14 @@ class WordController extends Controller
 
     // クイズ画面表示
     public function quiz()
-    {
-        $words = Auth::user()->Words;
+{
+    $words = Auth::user()->words;
 
-        if ($words->count() < 4) {
-            return back()->with('error', '最低4語登録してください');
-        }
+    if ($words->count() < 4) {
+        return view('words.quiz', compact('words'))
+            ->with('error', '最低4語登録してください');
+    }
+
 
         $question = $words->random();
         $correctAnswer = $question->imi;

@@ -1,19 +1,30 @@
-<!-- resources/views/words/flashcards.blade.php -->
+<!-- <pre>{{ var_dump($error ?? 'error not set') }}</pre> -->
+
 @include('layouts.header')
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <title>単語帳アプリ</title>
+    <title>英単語クイズ</title>
 </head>
 <html>
 
 <body>
-    <div class="container">
+    <div class="container" style="margin-top:50px;">
+        {{-- エラーメッセージの表示 --}}
+        @if (!empty($error))
+        <div class="alert alert-danger">
+            {{ $error }}
+        </div>
+        @endif
         <div class="wordsection">
+            {{-- 単語が十分ある時だけクイズを表示 --}}
+            @if (isset($question) && isset($choices))
             <div class="cardbox">
                 <h2 class="font-semibold text-xl text-gray-800 leading-normal">次の英単語の意味は？</h2>
+            </div>
+            <div class="cardbox">
                 <p class="text-xl font-bold">{{ $question->english }}</p>
             </div>
             <div class="card">
@@ -42,6 +53,7 @@
                 <x-primary-button>正解率の低い単語</x-primary-button>
             </form>
         </div>
+        @endif
     </div>
 
 

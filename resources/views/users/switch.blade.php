@@ -14,9 +14,11 @@
             <h2>ユーザー切り替え</h2>
             <form method="POST" action="{{ route('users.switch') }}">
                 @csrf
-                <select name="user_id">
+                <select name="user_id" class="form-control">
                     @foreach($users as $user)
-                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                    <option value="{{ $user->id }}" {{ Auth::id() == $user->id ? 'selected' : '' }}>
+                        {{ $user->name }}
+                    </option>
                     @endforeach
                 </select>
                 <button type="submit">切り替え</button>

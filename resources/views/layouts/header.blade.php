@@ -23,11 +23,13 @@
                             class="{{ request()->routeIs('categories.index') ? 'active' : '' }}">
                             📂<span> カテゴリ管理</span></a></li>
                     <li><a href="{{ route('profile.edit')}}"
-                            class="{{ request()->routeIs('profile.edit') ? 'active' : '' }}">👤
-                            <span>プロフィール</span></a>
+                            class="{{ request()->routeIs('profile.edit') ? 'active' : '' }}">
+                            👤<span>プロフィール</span></a>
                     </li>
                     <li>
-                        <a href="{{ route('users.switch.form') }}" class="text-blue-600">ユーザー切り替え</a>
+                        <a href="{{ route('users.switch.form') }}"
+                            class="{{ request()->routeIs('profile.edit') ? 'active' : '' }}">
+                            <span>ユーザー切り替え</span></a>
                     </li>
                 </ul>
             </nav>
