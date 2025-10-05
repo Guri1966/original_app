@@ -3,20 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;          
 use App\Models\Word;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 
 class WordController extends Controller
 {
-    // ホーム画面（ユーザーの単語一覧）
+     /**
+     * ホーム画面を表示
+     * ログイン中のユーザーが登録した単語一覧を取得して表示する。
+     *
+     * @return \Illuminate\View\View
+     */
+    
     public function home()
     {
         $words = Auth::user()->words;
         return view('home', compact('words'));
     }
 
-    // 単語一覧（ページネーション付き）
+    /** 単語一覧をページネーション付きで表示
+    * hold_flag優先 → 英単語アルファベット順 → 作成日順で並べ替える。
+    *
+    * @return \Illuminate\View\View
+    */ 
+    
     public function index()
     {
         $words = Auth::user()->words()
@@ -29,14 +41,27 @@ class WordController extends Controller
         return view('words.index', compact('words'));
     }
 
-    // 単語作成フォーム表示
+    /**  
+     * 単語登録フォームを表示
+     * ユーザーがカテゴリを選択できるように、全カテゴリーを取得する。
+     *
+     * @return \Illuminate\View\View
+    */
     public function create()
     {
         $categories = Category::all();
         return view('words.create', compact('categories'));
     }
 
-    // 単語登録処理
+    /** 
+     * 単語を新規登録
+     * 
+     * バリデーション後に画像を保存し、ログインユーザーに紐づけて登録する。
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -50,6 +75,7 @@ class WordController extends Controller
             'hold_flag' => 'required|boolean',
         ]);
 
+        // 画像がある場合はstorageに保存してパスを保持
         if ($request->hasFile('image')) {
             $validated['image_path'] = $request->file('image')->store('images', 'public');
         }
@@ -64,7 +90,12 @@ class WordController extends Controller
         return redirect()->route('words.index')->with('success','単語を登録しました');
     }
 
-    // 編集フォーム表示
+    /** 
+     * 単語編集フォームを表示
+     *  
+     * @param  App\Models\Word $word
+     * @return \Illuminate\View\View
+     */ 
     public function edit(Word $word)
     {
         $categories = Category::all();
@@ -72,7 +103,14 @@ class WordController extends Controller
     }
 
     
-   // 単語更新処理
+   /**
+    *  単語の更新処理
+    *  入力値をバリデーション->空値を整形 ->画像保存->更新
+    *   
+    * @param \Illuminate\Http\Request $request
+    * @param \App\Models\Word $word
+    * @return \Illuminate\Http\RedirectResponse
+    */
 public function update(Request $request, Word $word)
 {
     $request->validate([
@@ -90,7 +128,7 @@ public function update(Request $request, Word $word)
         'english','onsetu','yomikata','imi','ruigo','iikae','category_id'
     ]);
 
-    // 空の値は空文字に
+    // 入力がなかったフィールドは空文字にしてDBの整合性を保つ
     foreach (['onsetu','yomikata','imi','ruigo','iikae'] as $field) {
         $data[$field] = $data[$field] ?? '';
     }
@@ -104,14 +142,31 @@ public function update(Request $request, Word $word)
     return redirect()->route('words.index')->with('success', '更新しました！');
 }
 
-    // 単語削除
+    /**
+     * 単語削除処理
+     *  
+     * @param \App\Models\Word $word
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    
     public function destroy(Word $word)
     {
         $word->delete();
         return redirect()->route('words.index')->with('success','削除しました！');
     }
 
-    // ホールドフラグ更新
+    /**
+     * ホールドフラグの更新
+     * リクエストの内容をバリデーションし、データを保存する
+     * バリデーションルール:
+     * hold_flag: 必須 (required)、かつ boolean 値であること
+     * 値を正しい型（boolean）に変換してから保存
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Word $word
+     * @return \Illuminate\Http\RedirectResponse
+     */
+
     public function hold(Request $request, Word $word)
     {
         $request->validate([
@@ -122,7 +177,14 @@ public function update(Request $request, Word $word)
         return redirect()->route('words.index');
     }
 
-    // クイズ画面表示
+    /**
+     * クイズ画面を表示
+     * 登録単語からランダムに問題を出題し、正答＋誤答を選択肢として生成する。
+     * ※最低4語登録されていないとクイズ不可
+     *
+     * @return \Illuminate\View\View
+     */  
+
     public function quiz()
 {
     $words = Auth::user()->words;
@@ -145,7 +207,14 @@ public function update(Request $request, Word $word)
         return view('words.quiz', compact('question', 'choices', 'correctAnswer'));
     }
 
-    // クイズ解答チェック（AJAX用）
+    /**
+     * クイズの解答チェック（AJAX用）
+     * 回答履歴を保存し、正答率を計算できるようにする。
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+
     public function check(Request $request)
     {
         $word = Auth::user()->words()->findOrFail($request->word_id);
@@ -160,7 +229,13 @@ public function update(Request $request, Word $word)
         ]);
     }
 
-    // クイズ統計表示
+      /**
+     * クイズ統計画面を表示
+     * 各単語の正答率を計算し、正答率の低い順に並べて出力する。
+     *
+     * @return \Illuminate\View\View
+     */
+    
     public function stats()
     {
         $words = Auth::user()

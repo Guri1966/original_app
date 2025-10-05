@@ -1,3 +1,4 @@
+{{-- @var \Illuminate\Pagination\LengthAwarePaginator $words --}}
 @include('layouts.header')
 <!DOCTYPE html>
 <html lang="ja">
