@@ -43,9 +43,14 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    /**
+     * ユーザーが登録した単語一覧
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function words()
-{
-    return $this->hasMany(Word::class);
-}
+    {
+        return $this->hasMany(Word::class);
+    }
 
 }
