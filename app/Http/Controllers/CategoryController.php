@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Http\RedirectResponse;
 
 class CategoryController extends Controller
 {    
@@ -12,6 +13,7 @@ class CategoryController extends Controller
     *
     * @return \Illuminate\View\View
     */ 
+
     public function index()
     {
         $categories = Category::paginate(10);
@@ -23,6 +25,7 @@ class CategoryController extends Controller
      * 
      * @return \Illuminate\View\View
      */
+
     public function create()
     {
         return view('categories.create');
@@ -37,6 +40,7 @@ class CategoryController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
     */
+
     public function store(Request $request)
     {
         $request->validate([
@@ -56,6 +60,7 @@ class CategoryController extends Controller
      * @param \App\Models\Category $category
      * @return \Illuminate\View\View
     */
+
     public function edit(Category $category)
     {
         return view('categories.edit', compact('category'));
@@ -71,6 +76,7 @@ class CategoryController extends Controller
      * @param　\App\Models\Category　$category
      * @return \Illuminate\Http\RedirectResponse   
      */
+
     public function update(Request $request, Category $category)
     {
         $request->validate([
@@ -89,6 +95,7 @@ class CategoryController extends Controller
      * @param \App\Models\Category $category
      * @return \Illuminate\Http\RedirectResponse 
     */
+    
     public function destroy(Category $category)
     {
         $category->delete();

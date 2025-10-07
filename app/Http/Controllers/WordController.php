@@ -217,15 +217,28 @@ public function update(Request $request, Word $word)
 
     public function check(Request $request)
     {
+        // ログイン中ユーザーが登録した単語の中から、解答対象の単語を取得
+        // 存在しない場合は 404 (Not Found) になる
         $word = Auth::user()->words()->findOrFail($request->word_id);
+
+        // 回答回数を1回増やす
         $word->answer_count += 1;
+
+        // ユーザーの回答($request->answer) と 正解($request->correctAnswer) を比較
         $isCorrect = $request->answer === $request->correctAnswer;
-        if ($isCorrect) $word->correct_count += 1;
+
+        // 正解だった場合は、正解数を1回増やす
+        if ($isCorrect) {
+            $word->correct_count += 1;
+        }
+
+        // 回答履歴（回答回数・正解数）を保存
         $word->save();
 
+        // 結果をJSON形式で返す
         return response()->json([
-            'isCorrect' => $isCorrect,
-            'correctAnswer' => $request->correctAnswer,
+            'isCorrect' => $isCorrect,                 // 正解かどうか（true/false）
+            'correctAnswer' => $request->correctAnswer // 正解の答え
         ]);
     }
 
