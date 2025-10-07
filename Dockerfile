@@ -46,3 +46,7 @@ RUN rm /etc/apache2/sites-available/000-default.conf && \
 
 # Apache mod_rewrite 有効化
 RUN a2enmod rewrite
+
+# Node.js を追加（例: v18）
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs
