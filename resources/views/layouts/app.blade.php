@@ -23,7 +23,7 @@
 
     <!-- sidebar -->
     @include('layouts.sidebar')
-
+    <script src="{{ asset('js/main.js') }}"></script>
     <!-- <script src="{{ asset('js/sidebar.js') }}"></script> -->
 </body>
 

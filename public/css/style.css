@@ -2,12 +2,12 @@
   background-color: #daeb91;
 }
 
-.header {
+/* .header {
   background-color: #4CAF50;
   color: white;
   padding: 10px 0;
   text-align: center;
-}
+} */
 
 .container {
   max-width: 980px;
@@ -16,7 +16,7 @@
 }
 
 .wordsection {
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 .wordStore_area {
@@ -61,6 +61,27 @@
   border: 5px solid #ddd;
   border-radius: 10px;
   padding: 15px;
+}
+
+/**
+  * 画像表示エリア
+  * 画像がない場合でも高さを確保し、レイアウトの崩れを防ぐ
+  * 画像がある場合は、縦横比を保ちながら最大高さ100pxに収める
+  */
+
+#word-image-area {
+  min-height: 120px;
+  /* 画像がないときも高さを確保 */
+  display: flex;
+  align-items: center;
+  /* 縦中央に寄せる */
+  justify-content: left;
+  /* 左に寄せる */
+}
+
+#word-image {
+  max-height: 100px;
+  object-fit: contain;
 }
 
 .card li {
@@ -189,6 +210,57 @@ input:hover {
 
 /* //ヘッダー要素 */
 
+.site-header {
+  background: #2d3748;
+  color: #fff;
+  padding: auto 20px;
+  position: fixed;
+  /* 固定表示 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: 100%;
+}
+
+.menu ul {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  padding: 10px 10px;
+}
+
+.auth-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logout-btn {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin: 10px 30px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: #cc0000;
+}
+
+/* ヘッダー高さ分の余白をページ上部に追加 */
+body {
+  padding-top: 70px;
+}
+
+/* * ヘッダー部分
 header {
   height: 80px;
 }
@@ -241,7 +313,7 @@ header {
 
 .auth-links a:hover {
   background-color: #1c5980;
-}
+} */
 
 .mark {
   font-size: 20px;

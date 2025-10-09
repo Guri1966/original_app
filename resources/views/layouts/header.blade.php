@@ -48,7 +48,7 @@
         @endif
     </div>
 </header>
-<style>
+<!-- <style>
 .site-header {
     background: #2d3748;
     color: #fff;
@@ -98,4 +98,4 @@
 body {
     padding-top: 70px;
 }
-</style>
+</style> -->
