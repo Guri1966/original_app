@@ -20,11 +20,8 @@
             @yield('content')
         </main>
     </div>
-
-    <!-- sidebar -->
-    @include('layouts.sidebar')
     <script src="{{ asset('js/main.js') }}"></script>
-    <!-- <script src="{{ asset('js/sidebar.js') }}"></script> -->
+    <script src="{{ asset('js/quiz.js') }}"></script>
 </body>
 
 </html>

@@ -42,60 +42,11 @@
             </form>
         </div>
         @else
-        <div class="auth-links">
-            <a href="{{ route('login') }}">ログイン</a>
-        </div>
+        <!-- <div class="auth-links">
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+                <a href="{{ route('login') }}">ログイン</a>
+        </div> -->
         @endif
     </div>
 </header>
-<!-- <style>
-.site-header {
-    background: #2d3748;
-    color: #fff;
-    padding: 10px 20px;
-    position: fixed;
-    /* 固定表示 */
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-}
-
-.header-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: 100%;
-}
-
-.menu ul {
-    list-style: none;
-    display: flex;
-    gap: 15px;
-    padding: 30px 10px;
-}
-
-.auth-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.logout-btn {
-    background: #ff4d4d;
-    color: white;
-    border: none;
-    padding: 10px;
-    margin: 10px 30px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.logout-btn:hover {
-    background: #cc0000;
-}
-
-/* ヘッダー高さ分の余白をページ上部に追加 */
-body {
-    padding-top: 70px;
-}
-</style> -->

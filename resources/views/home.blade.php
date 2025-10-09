@@ -6,6 +6,7 @@
 @include('layouts.header')
 @endsection
 @section('content')
+@include('layouts.sidebar')
 <div class="container">
     <div class="wordsection">
         <h2 class="mt-0 font-semibold text-xl text-gray-800 leading-normal">
@@ -55,5 +56,3 @@
 window.words = @json($words);
 </script>
 <script src="{{ asset('js/main.js') }}"></script>
-
-</html>

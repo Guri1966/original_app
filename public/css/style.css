@@ -2,13 +2,6 @@
   background-color: #daeb91;
 }
 
-/* .header {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 0;
-  text-align: center;
-} */
-
 .container {
   max-width: 980px;
   margin-right: auto;
@@ -260,41 +253,6 @@ body {
   padding-top: 70px;
 }
 
-/* * ヘッダー部分
-header {
-  height: 80px;
-}
-
-.header_flex {
-  display: flex;
-  justify-content: space-between;
-}
-
-.left_header {
-  width: 30%;
-}
-
-.right_header {
-  width: 70%;
-  display: flex;
-  justify-content: end;
-}
-
-.right_header ul {
-  list-style: none;
-  display: flex;
-}
-
-.right_header ul li {
-  margin-left: 20px;
-}
-
-.right_header ul li a {
-  text-decoration: none;
-  color: black;
-  font-weight: bold;
-}
-
 .auth-info,
 .auth-links {
   display: flex;
@@ -313,7 +271,7 @@ header {
 
 .auth-links a:hover {
   background-color: #1c5980;
-} */
+}
 
 .mark {
   font-size: 20px;
