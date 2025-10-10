@@ -1,7 +1,5 @@
-@include('layouts.header')
-@include('layouts.sidebar')
 @extends('layouts.app')
-@section('title', '単語帳アプリ')
+@section('title', 'カテゴリ一覧表')
 @section('header')
 @include('layouts.header')
 @endsection
@@ -34,13 +32,13 @@
                     <td>
                         <form action="{{ route('categories.edit' , $category->id) }}" method="GET"
                             style="display:inline;">
-                            <button type="sumit">編集</button>
+                            <button class="edit" type="sumit">編集</button>
                         </form>
                         <form action="{{ route('categories.destroy', $category->id) }}" method="POST"
                             style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" onclick="return confirm('本当に削除しますか？')">削除</button>
+                            <button class="del" type="submit" onclick="return confirm('本当に削除しますか？')">削除</button>
                         </form>
                     </td>
                 </tr>

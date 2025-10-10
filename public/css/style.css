@@ -118,27 +118,61 @@
   /* 文字の幅に合わせる */
 }
 
-/* .category table {
+.category {
   border-collapse: collapse;
-  width: 100%;
-  min-height: 10px;
-} */
+  /* 枠をスッキリ */
+}
 
 .category th,
 .category td {
-  padding: 2px;
-  /* セル内余白を小さくする */
-  line-height: 1.2;
-  /* 文字の行間を調整 */
   border: 1px solid #999;
   text-align: center;
+  padding: 2px 4px;
+  line-height: 1.2;
+  height: 28px;
+  /* ← 強制的に行の高さを固定 */
 }
+
+.category form {
+  margin: 0;
+  padding: 0;
+  display: inline;
+}
+
+.category button {
+  display: inline-block;
+  /* ← flex をやめる */
+  margin: 0 4px;
+  /* 横の余白だけ */
+  padding: 4px 8px;
+  font-size: 12px;
+  line-height: 1.2;
+  height: auto;
+  /* 高さは文字に合わせる */
+  vertical-align: middle;
+  /* 行中央に揃える */
+  cursor: pointer;
+}
+
+.edit {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.del {
+  background-color: #ec1313;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
 
 /* 単語一覧表 */
 table {
   border-collapse: collapse;
   width: 100%;
-  min-height: 400px;
 }
 
 th,
