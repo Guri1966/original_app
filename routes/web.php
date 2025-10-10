@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     // hold専用ルート
     Route::patch('/words/{word}/hold', [WordController::class, 'hold'])->name('words.hold');
 
-    // カテゴリ
+    // カテゴリ関連
     Route::resource('categories', CategoryController::class);
 });
 
@@ -46,12 +46,12 @@ Route::get('/users/switch', [UserController::class,'switchForm'])
 Route::post('/users/switch', [UserController::class,'switch'])
 ->name('users.switch');
 
-//ユーザー登録画面表示
-Route::get('/users/register', [UserController::class, 'create'])
+//新規ユーザー登録画面表示
+Route::get('/users/create', [UserController::class, 'create'])
     ->name('users.create');
 
-    //ユーザー登録
-Route::post('/users/register', [UserController::class,'store'])
+//新規ユーザー登録
+Route::post('/users', [UserController::class,'store'])
 ->name('users.store');
     
 

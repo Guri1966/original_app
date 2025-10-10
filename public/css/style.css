@@ -118,6 +118,22 @@
   /* 文字の幅に合わせる */
 }
 
+/* .category table {
+  border-collapse: collapse;
+  width: 100%;
+  min-height: 10px;
+} */
+
+.category th,
+.category td {
+  padding: 2px;
+  /* セル内余白を小さくする */
+  line-height: 1.2;
+  /* 文字の行間を調整 */
+  border: 1px solid #999;
+  text-align: center;
+}
+
 /* 単語一覧表 */
 table {
   border-collapse: collapse;

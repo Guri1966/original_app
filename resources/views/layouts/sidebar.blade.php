@@ -1,4 +1,5 @@
 <!-- サイドバー -->
+@if (Auth::check())
 <aside id="sidebar" class="sidebar">
     <h2 class="menu-title">メニュー</h2>
     <ul>
@@ -10,6 +11,4 @@
         <li><a href="{{ route('profile.edit') }}">👤 プロフィール</a></li>
     </ul>
 </aside>
-
-<!-- ハンバーガーメニューのボタン -->
-<button id="menu-toggle" class="menu-btn">☰</button>
+@endif

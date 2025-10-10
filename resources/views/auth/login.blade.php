@@ -4,6 +4,7 @@
 @include('layouts.header')
 @endsection
 @section('content')
+@include('layouts.sidebar')
 <div class="container">
     <div class="wordsection">
         <h2 class="font-semibold text-gray-400 leading-normal text-[14px]">

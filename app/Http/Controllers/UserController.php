@@ -44,13 +44,12 @@ class UserController extends Controller
   /**
    * 新規ユーザー登録フォームを表示
    * 
-   * 
+   * @return \Illuminate\View\View
    */
     public function create()
     {
         return view('users.create');
     }
-
 
     /*
     * ユーザー新規登録
@@ -68,7 +67,7 @@ class UserController extends Controller
             'password' => 'required|string|max:255',
         ]);
 
-    // ユーザー作成
+    // ユーザー作成（保存）
         User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
