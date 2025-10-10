@@ -330,9 +330,10 @@ body {
 }
 
 .mark.correct {
-  color: green;
+  color: green !important;
   /* ⭕を緑 */
 }
+
 
 .mark.incorrect {
   color: red;

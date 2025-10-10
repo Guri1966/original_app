@@ -4,7 +4,6 @@
 @include('layouts.header')
 @endsection
 @section('content')
-@include('layouts.sidebar')
 <div class=container>
     <div class="wordStore_area">
         <h2 class="font-semibold text-gray-400 leading-normal text-[14px]">
