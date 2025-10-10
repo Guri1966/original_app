@@ -1,17 +1,14 @@
 {{-- @var \Illuminate\Pagination\LengthAwarePaginator $words --}}
-@include('layouts.header')
-<!DOCTYPE html>
-<html lang="ja">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <title>単語帳アプリ</title>
-</head>
+@extends('layouts.app')
+@section('title', '単語帳一覧ページ')
+@section('header')
+@include('layouts.header')
+@endsection
+@section('content')
 <div class="container">
     <div class="wordsection">
-        <h2 class="font-semibold text-xl text-gray-800 leading-normal">
+        <h2 class="mt-0 font-semibold text-xl text-gray-800 leading-normal">
             📖 単語帳一覧
         </h2>
         <button class="btn btn2" style="width:91%;max-width:300px;">
@@ -101,6 +98,4 @@
     </div>
 </div>
 </div>
-
-
-</html>
+@endsection

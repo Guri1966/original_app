@@ -3,20 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;          
+use Illuminate\Http\RedirectResponse;
 use App\Models\Word;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 
 class WordController extends Controller
 {
-     /**
+    /**
      * ホーム画面を表示
      * ログイン中のユーザーが登録した単語一覧を取得して表示する。
      *
      * @return \Illuminate\View\View
      */
-    
+
     public function home()
     {
         $words = Auth::user()->words;
@@ -24,14 +24,15 @@ class WordController extends Controller
     }
 
     /** 単語一覧をページネーション付きで表示
-    * hold_flag優先 → 英単語アルファベット順 → 作成日順で並べ替える。
-    *
-    * @return \Illuminate\View\View
-    */ 
-    
+     * hold_flag優先 → 英単語アルファベット順 → 作成日順で並べ替える。
+     *
+     * @return \Illuminate\View\View
+     */
+
     public function index()
     {
-        $words = Auth::user()->words()
+        $words = Auth::user()
+            ->words()
             ->orderByDesc('hold_flag')
             ->orderBy('english')
             ->orderBy('created_at')
@@ -41,12 +42,13 @@ class WordController extends Controller
         return view('words.index', compact('words'));
     }
 
+
     /**  
      * 単語登録フォームを表示
      * ユーザーがカテゴリを選択できるように、全カテゴリーを取得する。
      *
      * @return \Illuminate\View\View
-    */
+     */
     public function create()
     {
         $categories = Category::all();
@@ -65,13 +67,13 @@ class WordController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'english'   => 'required|string|max:255',
-            'onsetu'    => 'nullable|string|max:255',
-            'yomikata'  => 'nullable|string|max:255',
-            'imi'       => 'nullable|string|max:255',
-            'ruigo'     => 'nullable|string|max:255',
-            'iikae'     => 'nullable|string|max:255',
-            'image'     => 'nullable|image|max:2048',
+            'english' => 'required|string|max:255',
+            'onsetu' => 'nullable|string|max:255',
+            'yomikata' => 'nullable|string|max:255',
+            'imi' => 'nullable|string|max:255',
+            'ruigo' => 'nullable|string|max:255',
+            'iikae' => 'nullable|string|max:255',
+            'image' => 'nullable|image|max:2048',
             'hold_flag' => 'required|boolean',
         ]);
 
@@ -84,10 +86,10 @@ class WordController extends Controller
         $validated['hold_flag'] = $request->boolean('hold_flag');
 
         // ユーザーに紐づけて保存
-        Auth::user()->words()->create($validated); 
+        Auth::user()->words()->create($validated);
 
 
-        return redirect()->route('words.index')->with('success','単語を登録しました');
+        return redirect()->route('words.index')->with('success', '単語を登録しました');
     }
 
     /** 
@@ -95,52 +97,58 @@ class WordController extends Controller
      *  
      * @param  App\Models\Word $word
      * @return \Illuminate\View\View
-     */ 
+     */
     public function edit(Word $word)
     {
         $categories = Category::all();
         return view('words.edit', compact('word', 'categories'));
     }
 
-    
-   /**
-    *  単語の更新処理
-    *  入力値をバリデーション->空値を整形 ->画像保存->更新
-    *   
-    * @param \Illuminate\Http\Request $request
-    * @param \App\Models\Word $word
-    * @return \Illuminate\Http\RedirectResponse
-    */
-public function update(Request $request, Word $word)
-{
-    $request->validate([
-        'english' => 'required|string',
-        'onsetu' => 'nullable|string',
-        'yomikata' => 'nullable|string',
-        'imi' => 'nullable|string',
-        'ruigo' => 'nullable|string',
-        'iikae' => 'nullable|string',
-        'image' => 'nullable|image|max:2048',
-        'category_id' => 'nullable|exists:categories,id', // 存在チェックも追加すると安全
-    ]);
 
-    $data = $request->only([
-        'english','onsetu','yomikata','imi','ruigo','iikae','category_id'
-    ]);
+    /**
+     *  単語の更新処理
+     *  入力値をバリデーション->空値を整形 ->画像保存->更新
+     *   
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Word $word
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request, Word $word)
+    {
+        $request->validate([
+            'english' => 'required|string',
+            'onsetu' => 'nullable|string',
+            'yomikata' => 'nullable|string',
+            'imi' => 'nullable|string',
+            'ruigo' => 'nullable|string',
+            'iikae' => 'nullable|string',
+            'image' => 'nullable|image|max:2048',
+            'category_id' => 'nullable|exists:categories,id', // 存在チェックも追加すると安全
+        ]);
 
-    // 入力がなかったフィールドは空文字にしてDBの整合性を保つ
-    foreach (['onsetu','yomikata','imi','ruigo','iikae'] as $field) {
-        $data[$field] = $data[$field] ?? '';
+        $data = $request->only([
+            'english',
+            'onsetu',
+            'yomikata',
+            'imi',
+            'ruigo',
+            'iikae',
+            'category_id'
+        ]);
+
+        // 入力がなかったフィールドは空文字にしてDBの整合性を保つ
+        foreach (['onsetu', 'yomikata', 'imi', 'ruigo', 'iikae'] as $field) {
+            $data[$field] = $data[$field] ?? '';
+        }
+
+        if ($request->hasFile('image')) {
+            $data['image_path'] = $request->file('image')->store('images', 'public');
+        }
+
+        $word->update($data);
+
+        return redirect()->route('words.index')->with('success', '更新しました！');
     }
-
-    if ($request->hasFile('image')) {
-        $data['image_path'] = $request->file('image')->store('images', 'public');
-    }
-
-    $word->update($data);
-
-    return redirect()->route('words.index')->with('success', '更新しました！');
-}
 
     /**
      * 単語削除処理
@@ -148,11 +156,11 @@ public function update(Request $request, Word $word)
      * @param \App\Models\Word $word
      * @return \Illuminate\Http\RedirectResponse
      */
-    
+
     public function destroy(Word $word)
     {
         $word->delete();
-        return redirect()->route('words.index')->with('success','削除しました！');
+        return redirect()->route('words.index')->with('success', '削除しました！');
     }
 
     /**
@@ -183,24 +191,24 @@ public function update(Request $request, Word $word)
      * ※最低4語登録されていないとクイズ不可
      *
      * @return \Illuminate\View\View
-     */  
+     */
 
     public function quiz()
-{
-    $words = Auth::user()->words;
+    {
+        $words = Auth::user()->words;
 
-    if ($words->count() < 4) {
-        return view('words.quiz', compact('words'))
-            ->with('error', '最低4語登録してください');
-    }
+        if ($words->count() < 4) {
+            return view('words.quiz', compact('words'))
+                ->with('error', '最低4語登録してください');
+        }
 
 
         $question = $words->random();
         $correctAnswer = $question->imi;
 
         $wrongAnswers = $words->where('id', '!=', $question->id)
-                              ->random(3)
-                              ->pluck('imi');
+            ->random(3)
+            ->pluck('imi');
 
         $choices = collect([$correctAnswer])->merge($wrongAnswers)->shuffle();
 
@@ -242,20 +250,20 @@ public function update(Request $request, Word $word)
         ]);
     }
 
-      /**
+    /**
      * クイズ統計画面を表示
      * 各単語の正答率を計算し、正答率の低い順に並べて出力する。
      *
      * @return \Illuminate\View\View
      */
-    
+
     public function stats()
     {
         $words = Auth::user()
-                     ->words()
-                     ->where('answer_count', '>', 0)
-                     ->get()
-                     ->sortBy(fn($w) => $w->correct_count / $w->answer_count);
+            ->words()
+            ->where('answer_count', '>', 0)
+            ->get()
+            ->sortBy(fn($w) => $w->correct_count / $w->answer_count);
 
         return view('words.quiz_stats', compact('words'));
     }

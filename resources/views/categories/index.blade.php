@@ -1,14 +1,10 @@
+@extends('layouts.app')
+@section('title', 'カテゴリ一覧表')
+@section('header')
 @include('layouts.header')
-@include('layouts.sidebar')
-<!DOCTYPE html>
-<html lang="ja">
+@endsection
+@section('content')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <title>単語帳アプリ</title>
-</head>
 <div class="container" style="margin-top:0px;">
     <div class="wordsection">
         <h2>カテゴリ一覧</h2>
@@ -19,10 +15,8 @@
             {{ session('success') }}
         </div>
         @endif
-
-        <a href="{{ route('categories.create') }}">＋ 新規追加</a>
-
-        <table border="1" cellpadding="5" cellspacing="0">
+        <a href="{{ route('categories.create') }}">+ 新規追加</a>
+        <table class="category">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -36,12 +30,15 @@
                     <td>{{ $category->id }}</td>
                     <td>{{ $category->name }}</td>
                     <td>
-                        <a href="{{ route('categories.edit', $category->id) }}">編集</a>
+                        <form action="{{ route('categories.edit' , $category->id) }}" method="GET"
+                            style="display:inline;">
+                            <button class="edit" type="sumit">編集</button>
+                        </form>
                         <form action="{{ route('categories.destroy', $category->id) }}" method="POST"
                             style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" onclick="return confirm('本当に削除しますか？')">削除</button>
+                            <button class="del" type="submit" onclick="return confirm('本当に削除しますか？')">削除</button>
                         </form>
                     </td>
                 </tr>
@@ -50,5 +47,4 @@
         </table>
     </div>
 </div>
-
-</html>
+@endsection
