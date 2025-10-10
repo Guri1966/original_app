@@ -19,7 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
+     
     // 英単語クイズ関連
     Route::get('/words/quiz', [WordController::class, 'quiz'])->name('quiz');
     Route::post('/quiz/check', [WordController::class, 'check'])->name('quiz.check');
@@ -38,12 +38,21 @@ Route::middleware('auth')->group(function () {
     Route::resource('categories', CategoryController::class);
 });
 
+
 //ユーザ切り替え管理
 Route::get('/users/switch', [UserController::class,'switchForm'])
 ->name('users.switch.form');
 
 Route::post('/users/switch', [UserController::class,'switch'])
 ->name('users.switch');
+
+//ユーザー登録画面表示
+Route::get('/users/register', [UserController::class, 'create'])
+    ->name('users.create');
+
+    //ユーザー登録
+Route::post('/users/register', [UserController::class,'store'])
+->name('users.store');
     
 
 // ダッシュボード

@@ -9,7 +9,6 @@
         <li><a href="{{ route('categories.index') }}">📂 カテゴリ管理</a></li>
         <li><a href="{{ route('profile.edit') }}">👤 プロフィール</a></li>
     </ul>
-    <div class="auth-links" style="margin-top:100px;"> <a href="{{ route('register') }}">新規登録</a></div>
 </aside>
 
 <!-- ハンバーガーメニューのボタン -->
