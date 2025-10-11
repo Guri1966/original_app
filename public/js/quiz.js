@@ -34,17 +34,24 @@ document.addEventListener("DOMContentLoaded", () => {
             })
                 .then(res => res.json())
                 .then(data => {
+                    // すべてのマークをリセット
+                    document.querySelectorAll('.mark').forEach(m => {
+                        m.textContent = "";
+                        m.className = "mark";
+                    });
+
                     if (data.isCorrect) {
-                        markSpan.textContent = "⭕";
+                        // 正解の場合
                         markSpan.classList.add("correct");
                     } else {
+                        // 不正解の場合
                         markSpan.textContent = "❌";
                         markSpan.classList.add("incorrect");
 
+                        // 正解のボタンに緑マークを表示
                         document.querySelectorAll('.choice').forEach(otherBtn => {
                             if (otherBtn.dataset.answer === data.correctAnswer) {
-                                let correctMark = otherBtn.parentElement.querySelector('.mark');
-                                correctMark.textContent = "⭕";
+                                const correctMark = otherBtn.parentElement.querySelector('.mark');
                                 correctMark.classList.add("correct");
                             }
                         });

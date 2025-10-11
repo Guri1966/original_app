@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('title', 'クイズ')
-
 @section('header')
 @include('layouts.header')
 @endsection
@@ -47,6 +46,11 @@
                 </div>
             </form>
         </div>
+        <form action="{{ route( 'quiz.stats' ) }}" method="GET">
+            @csrf
+            <input type="hidden" name="submit" value="">
+            <x-primary-button>正解率の低い単語</x-primary-button>
+        </form>
 
         {{-- ✅ JSで使用する設定を渡す --}}
         <script>
