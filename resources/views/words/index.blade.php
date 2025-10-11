@@ -60,7 +60,6 @@
                                     <div class="edit_area">
                                         <form action="{{ route('words.edit', $word->id) }}" method="GET">
                                             @csrf
-                                            <!-- <input type="hidden" name="edit_id" value="{{$word->id}}"> -->
                                             <input type="submit" value="編集">
                                         </form>
                                     </div>

@@ -4,7 +4,7 @@
 @include('layouts.header')
 @endsection
 @section('content')
-
+@include('layouts.sidebar')
 <div class="container">
     <div class="wordsection">
         <div class="cardbox">

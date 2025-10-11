@@ -323,20 +323,33 @@ body {
   background-color: #1c5980;
 }
 
+.mark.correct {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border: 3px solid green;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 16px;
+  color: green;
+  font-weight: bold;
+}
+
+.mark.incorrect {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  color: red;
+  margin-left: 8px;
+  margin-bottom: 20px;
+}
+
 .mark {
   font-size: 20px;
   font-weight: bold;
   margin-left: 8px;
-}
-
-.mark.correct {
-  color: green;
-  /* ⭕を緑 */
-}
-
-.mark.incorrect {
-  color: red;
-  /* ❌を赤 */
+  margin-bottom: 5px;
+  vertical-align: middle;
 }
 
 /* ページネーション部分 */

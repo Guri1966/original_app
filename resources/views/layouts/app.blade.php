@@ -20,8 +20,9 @@
             @yield('content')
         </main>
     </div>
+    @if (!Request::is('quiz*'))
     <script src="{{ asset('js/main.js') }}"></script>
-    <script src="{{ asset('js/quiz.js') }}"></script>
+    @endif
 </body>
 
 </html>
