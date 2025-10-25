@@ -5,29 +5,29 @@
         <nav class="menu">
             <ul>
                 <li><a href="{{ route('home')}}" class="{{ request()->routeIs('home') ? 'active' : ''}}">
-                        🏠<span>ホーム</span></a>
+                        <i class="fa-solid fa-house"></i><span>ホーム</span></a>
                 </li>
                 <li><a href="{{ route('words.index')}}" class="{{ request()->routeIs('words.index') ? 'active' : ''}}">
-                        📖<span>単語一覧</span></a>
+                        <i class="fa-solid fa-list"></i><span>単語一覧</span></a>
                 </li>
                 <li><a href="{{route('words.create')}}" class="{{ request()->routeIs('words.create') ? 'active' : ''}}">
-                        📝<span>単語登録</span></a>
+                        <i class="fa-solid fa-file"></i><span>単語登録</span></a>
                 </li>
 
                 <li><a href="{{ route('quiz') }}" class="{{ request()->routeIs('quiz') ? 'active' : '' }}">
-                        🎴<span> クイズ</span></a>
+                        <i class="fa-solid fa-circle-question"></i><span> クイズ</span></a>
                 </li>
                 <li><a href="{{ route('categories.index') }}"
                         class="{{ request()->routeIs('categories.index') ? 'active' : '' }}">
-                        📂<span> カテゴリ管理</span></a></li>
+                        <i class="fa-solid fa-book"></i><span> カテゴリ管理</span></a></li>
                 <li><a href="{{ route('profile.edit')}}"
                         class="{{ request()->routeIs('profile.edit') ? 'active' : '' }}">
-                        👤<span>プロフィール</span></a>
+                        <i class="fa-solid fa-user"></i><span>プロフィール</span></a>
                 </li>
                 <li>
                     <a href="{{ route('users.switch.form') }}"
                         class="{{ request()->routeIs('users.switch.form') ? 'active' : '' }}">
-                        <span>ユーザー切り替え</span></a>
+                        <i class="fa-solid fa-users"></i><span>ユーザー切り替え</span></a>
                 </li>
             </ul>
         </nav>
