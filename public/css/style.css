@@ -122,19 +122,20 @@
 .menu i {
   background-color: #13b9ec;
   color: white;
-  border-radius: 8px;
-  padding: 5px;
+  border-radius: 5px;
+  padding: 3px;
 }
 
+/* Font Awesome アイコン */
 .menu a.active i {
   background-color: #ec1313;
 }
 
-
+/* Font Awesome アイコン (sidebar) */
 .sidebar i {
   background-color: #13b9ec;
   color: white;
-  border-radius: 8px;
+  border-radius: 5px;
   padding: 3px;
 }
 
