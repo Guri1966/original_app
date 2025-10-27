@@ -194,6 +194,8 @@
 table {
   border-collapse: collapse;
   width: 100%;
+  /* 文字の自動改行 */
+  text-wrap: balance;
 }
 
 th,
