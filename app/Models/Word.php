@@ -42,4 +42,15 @@ class Word extends Model
         return $this->belongsTo(Category::class);
     }
 
+     /**
+     * 単語が属する正誤回答（任意）
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function stat()
+    {
+        return $this->hasOne(WordStat::class);
+    }
+
+
 }

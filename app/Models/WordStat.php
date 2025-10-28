@@ -17,8 +17,8 @@ class WordStat extends Model
 
     /**
      * リレーション設定
-     * 単語と1対多の関係
-     * 
+     * 単語と1対1の関係
+     * @return \Illuminate\Database\Elogquent\Relations\BelongsTo
      */
     public function word()
     {

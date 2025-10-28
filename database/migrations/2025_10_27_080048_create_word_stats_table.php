@@ -8,6 +8,7 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     * （その単語の正答数・回答数などの統計）
      */
     public function up(): void
     {
