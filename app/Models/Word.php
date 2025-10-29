@@ -44,7 +44,8 @@ class Word extends Model
 
      /**
      * 単語が属する正誤回答（任意）
-     *
+     * WordStatモデルと1対1のリレーション設定
+     * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function stat()

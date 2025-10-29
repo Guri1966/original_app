@@ -17,7 +17,7 @@ class WordController extends Controller
      * @return \Illuminate\View\View
      */
 
-    public function home()
+    public function showHome()
     {
         $words = Auth::user()->words;
         return view('home', compact('words'));
@@ -164,7 +164,7 @@ class WordController extends Controller
     }
 
     /**
-     * ホールドフラグの更新
+     *「ホールド状態を切り替える」処理
      * リクエストの内容をバリデーションし、データを保存する
      * バリデーションルール:
      * hold_flag: 必須 (required)、かつ boolean 値であること
@@ -175,7 +175,7 @@ class WordController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
 
-    public function hold(Request $request, Word $word)
+    public function toggleHold(Request $request, Word $word)
     {
         $request->validate([
             'hold_flag' => 'required|boolean',
@@ -193,7 +193,7 @@ class WordController extends Controller
      * @return \Illuminate\View\View
      */
 
-    public function quiz()
+    public function showQuiz()
     {
         $words = Auth::user()->words;
 
@@ -223,7 +223,7 @@ class WordController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-    public function check(Request $request)
+    public function checkAnswer(Request $request)
     {
         // ログイン中ユーザーが登録した単語の中から、解答対象の単語を取得
         // 存在しない場合は 404 (Not Found) になる
@@ -269,7 +269,7 @@ class WordController extends Controller
      * @return \Illuminate\View\View
      */
 
-    public function stats()
+    public function showStats()
     {
         $words = Auth::user()
             ->words()
