@@ -72,7 +72,7 @@
                                         </form>
                                     </div>
                                     <div class="checkbox">
-                                        <form action="{{ route('words.hold',$word->id) }}" method="POST">
+                                        <form action="{{ route('toggleHold',$word->id) }}" method="POST">
                                             @csrf
                                             @method('PATCH')
                                             <input type="hidden" name="hold_flag" value="0">

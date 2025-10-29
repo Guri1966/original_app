@@ -118,6 +118,27 @@
   /* 文字の幅に合わせる */
 }
 
+/* Font Awesome アイコン */
+.menu i {
+  background-color: #13b9ec;
+  color: white;
+  border-radius: 5px;
+  padding: 3px;
+}
+
+/* Font Awesome アイコン */
+.menu a.active i {
+  background-color: #ec1313;
+}
+
+/* Font Awesome アイコン (sidebar) */
+.sidebar i {
+  background-color: #13b9ec;
+  color: white;
+  border-radius: 5px;
+  padding: 3px;
+}
+
 .category {
   border-collapse: collapse;
   /* 枠をスッキリ */
@@ -173,6 +194,8 @@
 table {
   border-collapse: collapse;
   width: 100%;
+  /* 文字の自動改行 */
+  text-wrap: balance;
 }
 
 th,
@@ -245,6 +268,8 @@ td {
   border: none;
   border-radius: 5px;
 }
+
+
 
 button:hover,
 input:hover {

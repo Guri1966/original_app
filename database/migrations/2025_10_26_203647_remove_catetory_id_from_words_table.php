@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('words', function (Blueprint $table) {
-         $table->string('image_path')->nullable()->after('iikae');
-    });
+              $table->dropColumn('catetory_id');
+        });
     }
 
     /**
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('words', function (Blueprint $table) {
-             $table->dropColumn('image_path');
+               $table->unsignedBigInteger('catetory_id')->nullable();
         });
     }
 };

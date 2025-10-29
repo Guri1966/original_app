@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('words', function (Blueprint $table) {
-         $table->string('image_path')->nullable()->after('iikae');
-    });
+                $table->dropColumn(['correct_count', 'answer_count']);
+        });
     }
 
     /**
@@ -22,7 +22,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('words', function (Blueprint $table) {
-             $table->dropColumn('image_path');
+        $table->unsignedInteger('correct_count')->default(0);
+        $table->unsignedInteger('answer_count')->default(0);
         });
     }
 };

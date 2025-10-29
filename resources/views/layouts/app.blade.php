@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <title>@yield('title', 'デフォルトタイトル')</title>
-    <script src="https://kit.fontawesome.com/2fe469bd53.js" crossorigin="anonymous"></script>
+    <!-- Font Awesome CDN  CSS版 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
 
 <body>

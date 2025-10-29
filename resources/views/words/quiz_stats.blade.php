@@ -9,7 +9,7 @@
 
     <div class="cardbox">
         <h2 style="margin-top:30px;">正解率の低い単語</h2>
-        <a href="{{ route('quiz') }}">クイズ問題へ戻る</a>
+        <a href="{{ route('showQuiz') }}">クイズ問題へ戻る</a>
     </div>
     <table>
         <tr>
@@ -21,7 +21,12 @@
         <tr>
             <td>{{ $word->english }}</td>
             <td>{{ $word->imi }}</td>
-            <td>{{ round($word->correct_count / $word->answer_count * 100, 1) }}%</td>
+            <td>
+                {{ $word->stat && $word->stat->answer_count > 0
+        ? round($word->stat->correct_count / $word->stat->answer_count * 100, 1) . '%'
+        : '0%' }}
+            </td>
+
         </tr>
         @endforeach
     </table>

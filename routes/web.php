@@ -21,18 +21,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
      
     // 英単語クイズ関連
-    Route::get('/words/quiz', [WordController::class, 'quiz'])->name('quiz');
-    Route::post('/quiz/check', [WordController::class, 'check'])->name('quiz.check');
-    Route::get('/quiz/stats', [WordController::class, 'stats'])->name('quiz.stats');
+    Route::get('/words/quiz', [WordController::class, 'showQuiz'])->name('showQuiz');
+    Route::post('/quiz/check', [WordController::class, 'checkAnswer'])->name('checkAnswer');
+    Route::get('/quiz/stats', [WordController::class, 'showStats'])->name('showStats');
 
     // 単語帳ホーム
-    Route::get('/home', [WordController::class, 'home'])->name('home');
+    Route::get('/home', [WordController::class, 'showHome'])->name('showHome');
 
     // 単語のCRUD（createも含まれるので別途定義は不要）
     Route::resource('words', WordController::class)->except(['show']);
 
-    // hold専用ルート
-    Route::patch('/words/{word}/hold', [WordController::class, 'hold'])->name('words.hold');
+    // toggleHold専用ルート
+    Route::patch('/words/{word}/hold', [WordController::class, 'toggleHold'])->name('toggleHold');
 
     // カテゴリ関連
     Route::resource('categories', CategoryController::class);

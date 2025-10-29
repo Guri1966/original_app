@@ -4,7 +4,7 @@
         @if (Auth::check())
         <nav class="menu">
             <ul>
-                <li><a href="{{ route('home')}}" class="{{ request()->routeIs('home') ? 'active' : ''}}">
+                <li><a href="{{ route('showHome')}}" class="{{ request()->routeIs('showHome') ? 'active' : ''}}">
                         <i class="fa-solid fa-house"></i><span>ホーム</span></a>
                 </li>
                 <li><a href="{{ route('words.index')}}" class="{{ request()->routeIs('words.index') ? 'active' : ''}}">
@@ -14,7 +14,7 @@
                         <i class="fa-solid fa-file"></i><span>単語登録</span></a>
                 </li>
 
-                <li><a href="{{ route('quiz') }}" class="{{ request()->routeIs('quiz') ? 'active' : '' }}">
+                <li><a href="{{ route('showQuiz') }}" class="{{ request()->routeIs('showQuiz') ? 'active' : '' }}">
                         <i class="fa-solid fa-circle-question"></i><span> クイズ</span></a>
                 </li>
                 <li><a href="{{ route('categories.index') }}"

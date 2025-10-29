@@ -17,7 +17,7 @@ class WordController extends Controller
      * @return \Illuminate\View\View
      */
 
-    public function home()
+    public function showHome()
     {
         $words = Auth::user()->words;
         return view('home', compact('words'));
@@ -164,7 +164,7 @@ class WordController extends Controller
     }
 
     /**
-     * ホールドフラグの更新
+     *「ホールド状態を切り替える」処理
      * リクエストの内容をバリデーションし、データを保存する
      * バリデーションルール:
      * hold_flag: 必須 (required)、かつ boolean 値であること
@@ -175,7 +175,7 @@ class WordController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
 
-    public function hold(Request $request, Word $word)
+    public function toggleHold(Request $request, Word $word)
     {
         $request->validate([
             'hold_flag' => 'required|boolean',
@@ -193,7 +193,7 @@ class WordController extends Controller
      * @return \Illuminate\View\View
      */
 
-    public function quiz()
+    public function showQuiz()
     {
         $words = Auth::user()->words;
 
@@ -223,25 +223,33 @@ class WordController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-    public function check(Request $request)
+    public function checkAnswer(Request $request)
     {
         // ログイン中ユーザーが登録した単語の中から、解答対象の単語を取得
         // 存在しない場合は 404 (Not Found) になる
-        $word = Auth::user()->words()->findOrFail($request->word_id);
+        // 追加:関連テーブル(wordstat)から取得
+        $word = Auth::user()->words()->with('stat')->findOrFail($request->word_id);
+   
+        // WordStatが存在しない場合は作成（初回対策）
+         $stat = $word->stat ?? $word->stat()->create([
+        'word_id' => $word->id,
+        'correct_count' => 0,
+        'answer_count' => 0,
+    ]);
 
         // 回答回数を1回増やす
-        $word->answer_count += 1;
+        $stat->answer_count += 1;
 
         // ユーザーの回答($request->answer) と 正解($request->correctAnswer) を比較
         $isCorrect = $request->answer === $request->correctAnswer;
 
         // 正解だった場合は、正解数を1回増やす
         if ($isCorrect) {
-            $word->correct_count += 1;
+            $stat->correct_count += 1;
         }
 
         // 回答履歴（回答回数・正解数）を保存
-        $word->save();
+        $stat->save();
 
         // 結果をJSON形式で返す
         return response()->json([
@@ -254,16 +262,23 @@ class WordController extends Controller
      * クイズ統計画面を表示
      * 各単語の正答率を計算し、正答率の低い順に並べて出力する。
      *
+     * whereHas:
+     * 　word_stats（別）テーブルに対して answer_count > 0 という条件を指定
+     * 　その条件に合うWordだけを取得
+     *  
      * @return \Illuminate\View\View
      */
 
-    public function stats()
+    public function showStats()
     {
         $words = Auth::user()
             ->words()
-            ->where('answer_count', '>', 0)
+            ->whereHas('stat',function ($query){
+                $query->where('answer_count', '>', 0);
+            })
+            ->with('stat')  //リレーションを事前読み込み（N+1問題の防止）
             ->get()
-            ->sortBy(fn($w) => $w->correct_count / $w->answer_count);
+            ->sortBy(fn($w) => $w->stat->correct_count / $w->stat->answer_count);
 
         return view('words.quiz_stats', compact('words'));
     }

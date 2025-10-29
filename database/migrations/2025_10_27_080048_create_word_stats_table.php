@@ -8,16 +8,15 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     * （その単語の正答数・回答数などの統計）
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('word_stats', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->foreignId('word_id')->constrained('words')->onDelete('cascade');
+            $table->unsignedInteger('correct_count')->default(0);
+            $table->unsignedInteger('answer_count')->default(0);
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('word_stats');
     }
 };
