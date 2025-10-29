@@ -21,7 +21,12 @@
         <tr>
             <td>{{ $word->english }}</td>
             <td>{{ $word->imi }}</td>
-            <td>{{ round($word->correct_count / $word->answer_count * 100, 1) }}%</td>
+            <td>
+                {{ $word->stat && $word->stat->answer_count > 0
+        ? round($word->stat->correct_count / $word->stat->answer_count * 100, 1) . '%'
+        : '0%' }}
+            </td>
+
         </tr>
         @endforeach
     </table>
