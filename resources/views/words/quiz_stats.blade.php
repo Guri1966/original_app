@@ -11,6 +11,7 @@
         <h2 style="margin-top:30px;">正解率の低い単語</h2>
         <a href="{{ route('showQuiz') }}">クイズ問題へ戻る</a>
     </div>
+
     <table>
         <tr>
             <th>英単語</th>

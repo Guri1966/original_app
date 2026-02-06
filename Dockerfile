@@ -29,7 +29,7 @@ RUN composer global config bin-dir --absolute
 ENV PATH="${PATH}:/root/.config/composer/vendor/bin"
 
 # Laravelプロジェクトのインストール（/var/www/html/laravel_app に作成）
-RUN composer create-project --prefer-dist laravel/laravel:^10.0 /var/www/html/laravel_app
+# RUN composer create-project --prefer-dist laravel/laravel:^10.0 /var/www/html/laravel_app
 
 # DocumentRootを laravel_app/public に変更（Apache設定の上書き）
 RUN rm /etc/apache2/sites-available/000-default.conf && \

@@ -6,25 +6,21 @@ services:
     ports:
       - "80:80"
     volumes:
-      - .:/var/www/html
+      - .:/var/www/html #  ホストの全ファイルをコンテナに同期
     depends_on:
       - db
-    command: >
-          sh -c "
-          chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache &&
-          chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache &&
-          apache2-foreground
-          "
-        
+    # 権限設定が必要な場合は、Laravelをインストールした「後」に実行するのが安全です。
+    # 最初は command を削除して、Dockerfile側のデフォルト（apache2-foreground）で動かすのが無難です。
+
   db:
     image: mysql:8.0
     platform: linux/amd64
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: secret   # MySQLのルートパスワード
+      MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: laravel
-      MYSQL_USER: laraveluser
-      MYSQL_PASSWORD: laravelpass
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
     ports:
       - "3306:3306"
     volumes:

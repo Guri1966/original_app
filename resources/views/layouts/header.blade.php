@@ -4,7 +4,7 @@
         @if (Auth::check())
         <nav class="menu">
             <ul>
-                <li><a href="{{ route('showHome')}}" class="{{ request()->routeIs('showHome') ? 'active' : ''}}">
+                <li><a href="{{ route('words.home')}}" class="{{ request()->routeIs('showHome') ? 'active' : ''}}">
                         <i class="fa-solid fa-house"></i><span>ホーム</span></a>
                 </li>
                 <li><a href="{{ route('words.index')}}" class="{{ request()->routeIs('words.index') ? 'active' : ''}}">
@@ -14,7 +14,7 @@
                         <i class="fa-solid fa-file"></i><span>単語登録</span></a>
                 </li>
 
-                <li><a href="{{ route('showQuiz') }}" class="{{ request()->routeIs('showQuiz') ? 'active' : '' }}">
+                <li><a href="{{ route('words.quiz') }}" class="{{ request()->routeIs('showQuiz') ? 'active' : '' }}">
                         <i class="fa-solid fa-circle-question"></i><span> クイズ</span></a>
                 </li>
                 <li><a href="{{ route('categories.index') }}"
@@ -42,11 +42,6 @@
             </form>
         </div>
         @else
-        <!-- <div class="auth-links">
-            <form method="POST" action="{{ route('login') }}">
-                @csrf
-                <a href="{{ route('login') }}">ログイン</a>
-        </div> -->
         @endif
     </div>
 </header>

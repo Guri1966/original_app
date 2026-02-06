@@ -224,10 +224,10 @@ class WordController extends Controller
      */
 
     public function checkAnswer(Request $request)
-    {
+    {  
         // ログイン中ユーザーが登録した単語の中から、解答対象の単語を取得
         // 存在しない場合は 404 (Not Found) になる
-        // 追加:関連テーブル(wordstat)から取得
+        // 追加:関連テーブル(wordstats)から取得
         $word = Auth::user()->words()->with('stat')->findOrFail($request->word_id);
    
         // WordStatが存在しない場合は作成（初回対策）

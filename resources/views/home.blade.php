@@ -49,6 +49,7 @@
         </div>
     </div>
 </div>
+
 @endsection
 
 <!-- PHP変数$wordsをJSで使えるようにする -->

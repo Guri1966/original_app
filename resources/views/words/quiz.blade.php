@@ -38,7 +38,7 @@
                 </li>
                 @endforeach
             </ul>
-            <form action="{{ route('showQuiz')}}" method="GET">
+            <form action="{{ route('words.quiz')}}" method="GET">
                 @csrf
                 <input type="hidden" name="sumbit">
                 <div class="button_area">
@@ -46,7 +46,7 @@
                 </div>
             </form>
         </div>
-        <form action="{{ route( 'showStats' ) }}" method="GET">
+        <form action="{{ route( 'words.quiz' ) }}" method="GET">
             @csrf
             <input type="hidden" name="submit" value="">
             <x-primary-button>正解率の低い単語</x-primary-button>
@@ -55,7 +55,7 @@
         {{-- ✅ JSで使用する設定を渡す --}}
         <script>
         window.quizConfig = {
-            url: "{{ route('checkAnswer') }}",
+            url: "{{ route('words.quiz.check') }}",
             csrf: "{{ csrf_token() }}"
         };
         </script>
