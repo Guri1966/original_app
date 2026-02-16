@@ -46,7 +46,7 @@
                 </div>
             </form>
         </div>
-        <form action="{{ route( 'words.quiz' ) }}" method="GET">
+        <form action="{{ route( 'words.quiz.stats' ) }}" method="GET">
             @csrf
             <input type="hidden" name="submit" value="">
             <x-primary-button>正解率の低い単語</x-primary-button>

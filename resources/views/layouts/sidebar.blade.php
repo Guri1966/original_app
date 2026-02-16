@@ -7,8 +7,10 @@
         <li><a href="{{ route('words.index') }}"><i class="fa-solid fa-list"></i> 単語一覧</a></li>
         <li><a href="{{ route('words.create') }}"><i class="fa-solid fa-file"></i> 単語登録</a></li>
         <li><a href="{{ route('words.quiz') }}"><i class="fa-solid fa-circle-question"></i> クイズ</a></li>
+        @can('admin-only')
         <li><a href="{{ route('categories.index') }}"><i class="fa-solid fa-book"></i> カテゴリ管理</a></li>
         <li><a href="{{ route('profile.edit') }}"><i class="fa-solid fa-user"></i> プロフィール</a></li>
+        @endcan
     </ul>
 </aside>
 @endif

@@ -38,14 +38,19 @@ Route::middleware('auth')->group(function () {
 
     // CRUD（Resourceを一箇所にまとめる）
     Route::resource('words', WordController::class)->except(['show']);
-    Route::resource('categories', CategoryController::class);
+ 
 
-    // ユーザー管理（ログイン中のみ許可する場合）
+    // 「管理者だけ」が使える機能
+Route::middleware('can:admin-only')->group(function () {
+     
+    Route::resource('categories', CategoryController::class);  // <- 管理者のみに設定したい
+       
     Route::prefix('users')->name('users.')->group(function () {
         Route::get('/switch', [UserController::class, 'switchForm'])->name('switch.form');
         Route::post('/switch', [UserController::class, 'switch'])->name('switch');
         Route::get('/create', [UserController::class, 'create'])->name('create');
         Route::post('/', [UserController::class, 'store'])->name('store');
+        });
     });
 });
 

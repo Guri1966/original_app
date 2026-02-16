@@ -17,18 +17,23 @@
                 <li><a href="{{ route('words.quiz') }}" class="{{ request()->routeIs('showQuiz') ? 'active' : '' }}">
                         <i class="fa-solid fa-circle-question"></i><span> クイズ</span></a>
                 </li>
+                @can('admin-only')
                 <li><a href="{{ route('categories.index') }}"
                         class="{{ request()->routeIs('categories.index') ? 'active' : '' }}">
-                        <i class="fa-solid fa-book"></i><span> カテゴリ管理</span></a></li>
+                        <i class="fa-solid fa-book"></i><span> カテゴリ管理</span></a>
+                </li>
+                @endcan
                 <li><a href="{{ route('profile.edit')}}"
                         class="{{ request()->routeIs('profile.edit') ? 'active' : '' }}">
                         <i class="fa-solid fa-user"></i><span>プロフィール</span></a>
                 </li>
+                @can('admin-only')
                 <li>
                     <a href="{{ route('users.switch.form') }}"
                         class="{{ request()->routeIs('users.switch.form') ? 'active' : '' }}">
                         <i class="fa-solid fa-users"></i><span>ユーザー切り替え</span></a>
                 </li>
+                @endcan
             </ul>
         </nav>
         <div class="auth-info">

@@ -53,4 +53,15 @@ class User extends Authenticatable
         return $this->hasMany(Word::class);
     }
 
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    // 管理者かどうかを判定する便利なメソッド
+    public function isAdmin()
+    {
+        return $this->roles()->where('name', 'admin')->exists();
+    }
+
 }
